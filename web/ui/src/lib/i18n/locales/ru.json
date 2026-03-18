@@ -4,7 +4,7 @@
 		"routers": "Маршрутизаторы",
 		"middlewares": "Промежуточные обработчики",
 		"entrypoints": "Точки входа",
-		"transports": "Серверные транспорты",
+		"transports": "Транспорт",
 		"users": "Пользователи",
 		"agents": "Агенты",
 		"dns": "DNS",
@@ -151,7 +151,7 @@
 		"defaultNoteText": "Установка этой точки входа по умолчанию снимет этот статус с остальных."
 	},
 	"transports": {
-		"title": "Серверные транспорты",
+		"title": "Транспорт",
 		"name": "Имя",
 		"type": "Тип",
 		"createTransport": "Создать транспорт",
@@ -386,7 +386,7 @@
 		"routersDesc": "Управление маршрутизаторами и сервисами",
 		"middlewaresTitle": "Промежуточные обработчики - Mantrae",
 		"entrypointsTitle": "Точки входа - Mantrae",
-		"transportsTitle": "Серверные транспорты - Mantrae",
+		"transportsTitle": "Транспорт - Mantrae",
 		"agentsTitle": "Агенты - Mantrae",
 		"loginTitle": "Вход",
 		"settingsTitle": "Настройки - Mantrae",

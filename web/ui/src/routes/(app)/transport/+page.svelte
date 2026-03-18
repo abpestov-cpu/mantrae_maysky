@@ -171,9 +171,9 @@
 				<div class="rounded-lg bg-primary/10 p-2">
 					<Truck class="h-6 w-6 text-primary" />
 				</div>
-				Server Transports
+				{$_('transports.title')}
 			</h1>
-			<p class="mt-1 text-muted-foreground">Manage your server transports</p>
+			<p class="mt-1 text-muted-foreground">{$_('meta.transportsDesc')}</p>
 		</div>
 	</div>
 
