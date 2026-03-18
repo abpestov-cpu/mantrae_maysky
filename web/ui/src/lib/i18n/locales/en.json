@@ -383,6 +383,7 @@
 		"usersTitle": "User Management",
 		"dnsTitle": "DNS Providers - Mantrae",
 		"routersTitle": "Routers - Mantrae",
+		"routersDesc": "Manage your routers and services",
 		"middlewaresTitle": "Middlewares - Mantrae",
 		"entrypointsTitle": "EntryPoints - Mantrae",
 		"transportsTitle": "Server Transports - Mantrae",

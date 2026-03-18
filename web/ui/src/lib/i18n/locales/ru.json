@@ -383,6 +383,7 @@
 		"usersTitle": "Управление пользователями",
 		"dnsTitle": "DNS-провайдеры - Mantrae",
 		"routersTitle": "Маршрутизаторы - Mantrae",
+		"routersDesc": "Управление маршрутизаторами и сервисами",
 		"middlewaresTitle": "Промежуточное ПО - Mantrae",
 		"entrypointsTitle": "Точки входа - Mantrae",
 		"transportsTitle": "Серверные транспорты - Mantrae",
