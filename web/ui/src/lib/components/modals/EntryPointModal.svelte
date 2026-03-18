@@ -7,6 +7,7 @@
 	import type { EntryPoint } from '$lib/gen/mantrae/v1/entry_point_pb';
 	import CustomSwitch from '../ui/custom-switch/custom-switch.svelte';
 	import { entrypoint } from '$lib/api/entrypoints.svelte';
+	import { _ } from 'svelte-i18n';
 
 	interface Props {
 		data?: EntryPoint;
@@ -37,37 +38,37 @@
 <Dialog.Root bind:open>
 	<Dialog.Content class="no-scrollbar max-h-[95vh] w-[425px] overflow-y-auto">
 		<Dialog.Header>
-			<Dialog.Title>{epData.id ? 'Edit' : 'Create'} EntryPoint</Dialog.Title>
-			<Dialog.Description>Configure how external traffic reaches your services</Dialog.Description>
+			<Dialog.Title>{epData.id ? $_('common.edit') : $_('common.create')} {$_('entrypoints.title')}</Dialog.Title>
+			<Dialog.Description>{$_('entrypointModal.description')}</Dialog.Description>
 		</Dialog.Header>
 
 		<form class="space-y-6" {onsubmit}>
 			<!-- Main Configuration -->
 			<div class="space-y-4">
 				<div class="space-y-2">
-					<Label for="name" class="flex items-center gap-2 text-sm font-medium">Name</Label>
+					<Label for="name" class="flex items-center gap-2 text-sm font-medium">{$_('entrypointModal.name')}</Label>
 					<Input
 						id="name"
 						bind:value={epData.name}
-						placeholder="e.g., web, api, postgres"
+						placeholder={$_('entrypointModal.namePlaceholder')}
 						class="transition-colors"
 					/>
-					<p class="text-xs text-muted-foreground">A descriptive name for this entry point</p>
+					<p class="text-xs text-muted-foreground">{$_('entrypointModal.nameHelp')}</p>
 				</div>
 
 				<div class="space-y-2">
-					<Label for="address" class="flex items-center gap-2 text-sm font-medium">Port</Label>
+					<Label for="address" class="flex items-center gap-2 text-sm font-medium">{$_('entrypointModal.port')}</Label>
 					<Input
 						id="address"
 						bind:value={epData.address}
-						placeholder="80, 443, 8080..."
+						placeholder={$_('entrypointModal.portPlaceholder')}
 						min="1"
 						max="65535"
 						class="transition-colors"
 					/>
 					<div class="flex items-center justify-between">
 						<p class="text-xs text-muted-foreground">
-							Port number (1-65535) where your service listens
+							{$_('entrypointModal.portHelp')}
 						</p>
 					</div>
 				</div>
@@ -76,9 +77,9 @@
 				<div class="space-y-3">
 					<div class="flex items-center justify-between">
 						<div class="space-y-1">
-							<Label class="flex items-center gap-2 text-sm font-medium">Default Entry Point</Label>
+							<Label class="flex items-center gap-2 text-sm font-medium">{$_('entrypointModal.defaultEntrypoint')}</Label>
 							<p class="text-xs text-muted-foreground">
-								Use this as the primary entry point for new routers
+								{$_('entrypointModal.defaultEntrypointHelp')}
 							</p>
 						</div>
 						<CustomSwitch bind:checked={epData.isDefault} size="md" />
@@ -87,8 +88,7 @@
 					{#if epData.isDefault}
 						<div class="rounded-lg border-l-2 border-primary bg-muted/50 p-3">
 							<p class="text-xs text-muted-foreground">
-								<strong>Note:</strong> Setting this as default will remove the default status from other
-								entry points.
+								<strong>{$_('entrypointModal.defaultNote')}</strong> {$_('entrypointModal.defaultNoteText')}
 							</p>
 						</div>
 					{/if}
@@ -96,7 +96,7 @@
 
 				<Separator />
 
-				<Button type="submit" class="w-full">{epData.id ? 'Update' : 'Create'}</Button>
+				<Button type="submit" class="w-full">{epData.id ? $_('common.update') : $_('common.create')}</Button>
 			</div>
 		</form>
 	</Dialog.Content>

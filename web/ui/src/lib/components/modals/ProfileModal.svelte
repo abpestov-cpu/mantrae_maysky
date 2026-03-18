@@ -9,6 +9,7 @@
 	import { CopyInput } from '../ui/input-group';
 	import { profile } from '$lib/api/profiles.svelte';
 	import { setting } from '$lib/api/settings.svelte';
+	import { _ } from 'svelte-i18n';
 
 	interface Props {
 		data?: Profile;
@@ -51,43 +52,43 @@
 <Dialog.Root bind:open>
 	<Dialog.Content class="no-scrollbar max-h-[95vh] w-100 overflow-y-auto">
 		<Dialog.Header>
-			<Dialog.Title>{profileData?.id ? 'Edit' : 'Create'} Profile</Dialog.Title>
-			<Dialog.Description>Configure your profile settings</Dialog.Description>
+			<Dialog.Title>{profileData?.id ? $_('common.edit') : $_('common.create')} {$_('nav.profiles')}</Dialog.Title>
+			<Dialog.Description>{$_('profileModal.description')}</Dialog.Description>
 		</Dialog.Header>
 
 		<form {onsubmit} class="space-y-4">
 			<div class="space-y-2">
-				<Label for="name" class="text-sm font-medium">Name</Label>
+				<Label for="name" class="text-sm font-medium">{$_('profileModal.name')}</Label>
 				<Input
 					id="name"
 					bind:value={profileData.name}
-					placeholder="traefik-site"
+					placeholder={$_('profileModal.namePlaceholder')}
 					class="transition-colors"
 				/>
-				<p class="text-xs text-muted-foreground">A descriptive name for this profile</p>
+				<p class="text-xs text-muted-foreground">{$_('profileModal.nameHelp')}</p>
 			</div>
 
 			<div class="space-y-2">
-				<Label for="description" class="text-sm font-medium">Description</Label>
+				<Label for="description" class="text-sm font-medium">{$_('profileModal.descriptionField')}</Label>
 				<Input
 					id="description"
 					bind:value={profileData.description}
-					placeholder="Site description"
+					placeholder={$_('profileModal.descriptionPlaceholder')}
 				/>
-				<p class="text-xs text-muted-foreground">Optional description for this profile</p>
+				<p class="text-xs text-muted-foreground">{$_('profileModal.descriptionHelp')}</p>
 			</div>
 
 			{#if profileData.id}
 				<div class="space-y-2">
-					<Label for="token" class="text-sm font-medium">Connection Token</Label>
+					<Label for="token" class="text-sm font-medium">{$_('profileModal.connectionToken')}</Label>
 					<div class="flex gap-2">
 						<CopyInput value={profileData.token} readonly />
-						<Button variant="outline" size="icon" onclick={regenerate} title="Regenerate token">
+						<Button variant="outline" size="icon" onclick={regenerate} title={$_('profileModal.regenerateToken')}>
 							<RotateCcw class="h-4 w-4" />
 						</Button>
 					</div>
 					<p class="text-xs text-muted-foreground">
-						Used in the connection URL to connect to this profile with your traefik instance
+						{$_('profileModal.connectionTokenHelp')}
 						<span class="underline">
 							{connString}
 						</span>
@@ -97,7 +98,7 @@
 
 			<Separator />
 
-			<Button type="submit" class="w-full">{profileData.id ? 'Update' : 'Create'}</Button>
+			<Button type="submit" class="w-full">{profileData.id ? $_('common.update') : $_('common.create')}</Button>
 		</form>
 	</Dialog.Content>
 </Dialog.Root>

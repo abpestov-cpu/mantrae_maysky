@@ -7,6 +7,7 @@
 	import PasswordInput from '../ui/password-input/password-input.svelte';
 	import Separator from '../ui/separator/separator.svelte';
 	import { user } from '$lib/api/users.svelte';
+	import { _ } from 'svelte-i18n';
 
 	interface Props {
 		data?: User;
@@ -46,57 +47,57 @@
 	<Dialog.Content class="no-scrollbar max-h-[95vh] w-100 overflow-y-auto">
 		<Dialog.Header>
 			<Dialog.Title>
-				{userData?.id ? 'Edit' : 'Create'} User
+				{userData?.id ? $_('common.edit') : $_('common.create')} {$_('nav.users')}
 			</Dialog.Title>
-			<Dialog.Description>Configure user account details and permissions</Dialog.Description>
+			<Dialog.Description>{$_('userModal.description')}</Dialog.Description>
 		</Dialog.Header>
 
 		<form {onsubmit} class="space-y-6">
 			<div class="space-y-4">
 				<div class="space-y-2">
-					<Label for="username" class="flex items-center gap-2 text-sm font-medium">Username</Label>
+					<Label for="username" class="flex items-center gap-2 text-sm font-medium">{$_('userModal.username')}</Label>
 					<Input
 						id="username"
 						bind:value={userData.username}
-						placeholder="Enter username"
+						placeholder={$_('userModal.usernamePlaceholder')}
 						required
 						class="transition-colors"
 					/>
-					<p class="text-xs text-muted-foreground">Display name for the user account</p>
+					<p class="text-xs text-muted-foreground">{$_('userModal.usernameHelp')}</p>
 				</div>
 
 				<div class="space-y-2">
-					<Label for="email" class="flex items-center gap-2 text-sm font-medium">Email</Label>
+					<Label for="email" class="flex items-center gap-2 text-sm font-medium">{$_('userModal.email')}</Label>
 					<Input
 						id="email"
 						type="email"
 						bind:value={userData.email}
-						placeholder="user@example.com"
+						placeholder={$_('userModal.emailPlaceholder')}
 						class="transition-colors"
 					/>
 					<p class="text-xs text-muted-foreground">
-						Email address for notifications and account recovery
+						{$_('userModal.emailHelp')}
 					</p>
 				</div>
 
 				<div class="space-y-2">
 					{#if userData.id}
-						<Label for="password" class="text-sm font-normal text-muted-foreground">Password</Label>
+						<Label for="password" class="text-sm font-normal text-muted-foreground">{$_('userModal.password')}</Label>
 						<PasswordInput id="password" bind:value={password} />
 						<p class="text-xs text-muted-foreground">
-							Only enter a new password if you want to change it
+							{$_('userModal.passwordChangeHint')}
 						</p>
 					{:else}
-						<Label for="password" class="text-sm font-normal text-muted-foreground">Password</Label>
+						<Label for="password" class="text-sm font-normal text-muted-foreground">{$_('userModal.password')}</Label>
 						<PasswordInput id="password" bind:value={password} required />
-						<p class="text-xs text-muted-foreground">Secure password for the user account</p>
+						<p class="text-xs text-muted-foreground">{$_('userModal.passwordHelp')}</p>
 					{/if}
 				</div>
 			</div>
 
 			<Separator />
 
-			<Button type="submit" class="w-full">{userData.id ? 'Update' : 'Create'}</Button>
+			<Button type="submit" class="w-full">{userData.id ? $_('common.update') : $_('common.create')}</Button>
 		</form>
 	</Dialog.Content>
 </Dialog.Root>
