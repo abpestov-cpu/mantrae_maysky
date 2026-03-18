@@ -35,7 +35,6 @@
 	import { user } from '$lib/api/users.svelte';
 	import { profileID } from '$lib/store.svelte';
 	import { _ } from 'svelte-i18n';
-	import LanguageSwitcher from './LanguageSwitcher.svelte';
 
 	let { ...restProps }: ComponentProps<typeof Sidebar.Root> = $props();
 
@@ -275,10 +274,6 @@
 								{/if}
 							</DropdownMenu.Item>
 						</DropdownMenu.Group>
-						<DropdownMenu.Separator />
-						<DropdownMenu.Item>
-							<LanguageSwitcher />
-						</DropdownMenu.Item>
 						<DropdownMenu.Separator />
 						<DropdownMenu.Item onSelect={() => logout.mutate({})}>
 							<LogOut />

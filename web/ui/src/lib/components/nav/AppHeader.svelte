@@ -7,6 +7,7 @@
 	import { page } from '$app/state';
 	import { SiteRoutes } from './routes';
 	import { _ } from 'svelte-i18n';
+	import LanguageSwitcher from './LanguageSwitcher.svelte';
 
 	type Crumb = {
 		title: string;
@@ -98,5 +99,10 @@
 				</Tabs.Root>
 			</div>
 		{/if}
+
+		<!-- Language Switcher (top-right) -->
+		<div class="ml-auto">
+			<LanguageSwitcher />
+		</div>
 	</div>
 </header>
