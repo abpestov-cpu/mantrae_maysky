@@ -16,6 +16,7 @@
 	import { CustomSwitch } from '../ui/custom-switch';
 	import { router } from '$lib/api/router.svelte';
 	import { entrypoint } from '$lib/api/entrypoints.svelte';
+	import { _ } from 'svelte-i18n';
 	import { middleware } from '$lib/api/middleware.svelte';
 
 	interface Props {
@@ -62,9 +63,9 @@
 	{#if epList.data?.length === 0}
 		<Alert.Root class="border-dashed">
 			<CircleAlert class="h-4 w-4" />
-			<Alert.Title>No entrypoints found</Alert.Title>
+			<Alert.Title>{$_('forms.noEntrypoints')}</Alert.Title>
 			<Alert.Description class="flex items-center justify-between">
-				<span>Create an entrypoint to get started.</span>
+				<span>{$_('forms.createEntrypointPrompt')}</span>
 				<Button
 					variant="outline"
 					size="sm"
@@ -72,14 +73,14 @@
 					class="ml-4 flex shrink-0 items-center gap-2"
 				>
 					<Plus />
-					Create Entrypoint
+					{$_('forms.createEntrypoint')}
 					<ExternalLink />
 				</Button>
 			</Alert.Description>
 		</Alert.Root>
 	{:else}
 		<div class="flex flex-col gap-2">
-			<Label class="mr-2">Entrypoints</Label>
+			<Label class="mr-2">{$_('forms.entrypoints')}</Label>
 			<Select.Root type="multiple" bind:value={config.entryPoints}>
 				<Select.Trigger class="w-full">
 					<span class="truncate text-left">
@@ -106,9 +107,9 @@
 	{#if mwList.data?.length === 0}
 		<Alert.Root class="border-dashed">
 			<CircleAlert class="h-4 w-4" />
-			<Alert.Title>No middlewares found</Alert.Title>
+			<Alert.Title>{$_('forms.noMiddlewares')}</Alert.Title>
 			<Alert.Description class="flex items-center justify-between">
-				<span>Create middlewares to add authentication, rate limiting, and more.</span>
+				<span>{$_('forms.createMiddlewarePrompt')}</span>
 				<Button
 					variant="outline"
 					size="sm"
@@ -116,7 +117,7 @@
 					class="ml-4 flex shrink-0 items-center gap-2"
 				>
 					<Plus />
-					Create Middleware
+					{$_('forms.createMiddleware')}
 					<ExternalLink />
 				</Button>
 			</Alert.Description>

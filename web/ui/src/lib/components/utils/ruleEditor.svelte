@@ -4,6 +4,7 @@
 	import { Label } from '$lib/components/ui/label';
 	import { Textarea } from '$lib/components/ui/textarea';
 	import { ValidateRule } from './ruleString';
+	import { _ } from 'svelte-i18n';
 	import { CircleCheck, CircleX } from '@lucide/svelte';
 	import { ProtocolType } from '$lib/gen/mantrae/v1/protocol_pb';
 	import { ruleTab } from '$lib/store.svelte';
@@ -240,7 +241,7 @@
 					id="host"
 					bind:value={host}
 					oninput={handleSimpleInput}
-					placeholder="example.com"
+					placeholder={$_('ruleEditor.domainPlaceholder')}
 					class={type === ProtocolType.HTTP ? 'col-span-6' : 'col-span-8'}
 					{disabled}
 				/>
@@ -262,7 +263,7 @@
 		<div class="relative mb-4 rounded-lg border">
 			<Textarea
 				id="rulesTextarea"
-				placeholder="Add rules here"
+				placeholder={$_('ruleEditor.addRulesPlaceholder')}
 				rows={3}
 				bind:value={rule}
 				class="w-full border-0 font-mono text-sm focus-visible:ring-0"

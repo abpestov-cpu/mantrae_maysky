@@ -30,6 +30,7 @@
 	import { router } from '$lib/api/router.svelte';
 	import { dns } from '$lib/api/dns.svelte';
 	import { service } from '$lib/api/service.svelte';
+	import { _ } from 'svelte-i18n';
 
 	interface Props {
 		data?: Router;
@@ -124,8 +125,8 @@
 						<Card.Content>
 							<div class="flex items-center justify-between">
 								<div>
-									<Card.Title class="flex items-center gap-2">DNS Providers</Card.Title>
-									<Card.Description>Manage DNS providers for this router</Card.Description>
+									<Card.Title class="flex items-center gap-2">{$_('routerModal.dnsProviders')}</Card.Title>
+									<Card.Description>{$_('routerModal.manageDns')}</Card.Description>
 								</div>
 
 								{#if routerData.type !== ProtocolType.UDP && dnsList.isSuccess}
@@ -173,7 +174,7 @@
 					<Card.Content>
 						<div class="grid grid-cols-2 gap-6">
 							<div class="space-y-1">
-								<Label class="text-muted-foreground">Router Name</Label>
+								<Label class="text-muted-foreground">{$_('routerModal.routerName')}</Label>
 								<p class="font-medium">{routerData.name || 'Not set'}</p>
 							</div>
 							<div class="space-y-1">
@@ -256,7 +257,7 @@
 										id="name"
 										bind:value={routerData.name}
 										required
-										placeholder="Router Name"
+										placeholder={$_('routerModal.routerName')}
 										class="truncate"
 									/>
 								</div>
@@ -318,7 +319,7 @@
 					<Card.Root>
 						<Card.Header>
 							<Card.Title class="flex items-center gap-2">Service Configuration</Card.Title>
-							<Card.Description>Configure backend servers and load balancing</Card.Description>
+							<Card.Description>{$_('routerModal.configureBackend')}</Card.Description>
 						</Card.Header>
 						<Card.Content class="flex flex-col gap-3">
 							{#if routerData.type === ProtocolType.HTTP}

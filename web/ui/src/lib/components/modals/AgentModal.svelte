@@ -13,6 +13,7 @@
 	import { CopyInput } from '../ui/input-group';
 	import { formatTs } from '$lib/utils';
 	import { agent } from '$lib/api/agents.svelte';
+	import { _ } from 'svelte-i18n';
 	import { setting } from '$lib/api/settings.svelte';
 
 	interface Props {
@@ -96,14 +97,14 @@
 						<Label class="text-sm font-medium">Agent Information</Label>
 						<div class="flex gap-2">
 							<div class="space-y-1">
-								<p class="text-xs text-muted-foreground">Hostname</p>
+								<p class="text-xs text-muted-foreground">{$_('agents.hostname')}</p>
 								<Badge variant="secondary" class="w-full justify-center">
 									{agentData.hostname}
 								</Badge>
 							</div>
 							{#if agentData.containers?.length > 0}
 								<div class="space-y-1">
-									<p class="text-xs text-muted-foreground">Containers</p>
+									<p class="text-xs text-muted-foreground">{$_('agents.containers')}</p>
 									<Badge variant="secondary" class="w-full justify-center">
 										{agentData.containers.length}
 									</Badge>
@@ -156,7 +157,7 @@
 								</div>
 								<div class="flex items-center gap-2">
 									{#if agentData.activeIp === agentData.publicIp || !agentData.activeIp}
-										<Badge variant="default">Active</Badge>
+										<Badge variant="default">{$_('agents.active')}</Badge>
 										<Badge variant="secondary">{agentData.publicIp}</Badge>
 									{:else}
 										<Button
@@ -179,7 +180,7 @@
 								</div>
 								<div class="flex items-center gap-2">
 									{#if agentData.activeIp === agentData.privateIp}
-										<Badge variant="default">Active</Badge>
+										<Badge variant="default">{$_('agents.active')}</Badge>
 										<Badge variant="secondary">{agentData.privateIp}</Badge>
 									{:else}
 										<Button
@@ -201,7 +202,7 @@
 								<Input
 									id="customip"
 									bind:value={agentData.activeIp}
-									placeholder="Enter custom IP address"
+									placeholder={$_('agents.customIpPlaceholder')}
 									class="flex-1"
 								/>
 							</div>
@@ -230,7 +231,7 @@
 
 				<div class="flex gap-2">
 					<CopyInput value={agentData.token} />
-					<Button variant="outline" size="icon" onclick={rotate} title="Rotate token">
+					<Button variant="outline" size="icon" onclick={rotate} title={$_('agents.rotateToken')}>
 						<RotateCcw class="h-4 w-4" />
 					</Button>
 				</div>
@@ -297,7 +298,7 @@
 											<span class="text-green-600">Copied!</span>
 										{:else if dockerComposeClipboard.status === 'failure'}
 											<X class="h-3 w-3 text-red-500" />
-											<span class="text-red-600">Failed</span>
+											<span class="text-red-600">{$_('agents.failed')}</span>
 										{:else}
 											<Copy class="h-3 w-3" />
 											Click to copy
@@ -340,7 +341,7 @@
 											<span class="text-green-600">Copied!</span>
 										{:else if dockerRunClipboard.status === 'failure'}
 											<X class="h-3 w-3 text-red-500" />
-											<span class="text-red-600">Failed</span>
+											<span class="text-red-600">{$_('agents.failed')}</span>
 										{:else}
 											<Copy class="h-3 w-3" />
 											Click to copy
