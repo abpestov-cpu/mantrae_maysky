@@ -2,7 +2,7 @@
 	"nav": {
 		"dashboard": "Панель",
 		"routers": "Маршрутизаторы",
-		"middlewares": "Промежуточные обработчики",
+		"middlewares": "Обработчики",
 		"entrypoints": "Точки входа",
 		"transports": "Транспорт",
 		"users": "Пользователи",
@@ -87,7 +87,7 @@
 		"name": "Имя",
 		"type": "Тип",
 		"entrypoints": "Точки входа",
-		"middlewares": "Промежуточные обработчики",
+		"middlewares": "Обработчики",
 		"rules": "Правила",
 		"tls": "TLS",
 		"createRouter": "Создать маршрутизатор",
@@ -112,21 +112,21 @@
 		"configureBackend": "Настройка серверов и балансировки нагрузки"
 	},
 	"middlewareModal": {
-		"description": "Настройка промежуточного ПО Traefik",
+		"description": "Настройка обработчика Traefik",
 		"name": "Имя",
-		"namePlaceholder": "Имя промежуточного ПО",
+		"namePlaceholder": "Имя обработчика",
 		"protocol": "Протокол",
-		"type": "Тип промежуточного ПО"
+		"type": "Тип обработчика"
 	},
 	"middlewares": {
-		"title": "Промежуточные обработчики",
+		"title": "Обработчики",
 		"name": "Имя",
 		"protocol": "Протокол",
 		"type": "Тип",
 		"default": "По умолчанию",
-		"createMiddleware": "Создать промежуточное ПО",
-		"editMiddleware": "Редактировать промежуточное ПО",
-		"deleteMiddleware": "Удалить промежуточное ПО"
+		"createMiddleware": "Создать обработчик",
+		"editMiddleware": "Редактировать обработчик",
+		"deleteMiddleware": "Удалить обработчик"
 	},
 	"entrypoints": {
 		"title": "Точки входа",
@@ -271,9 +271,9 @@
 		"noEntrypoints": "Точки входа не найдены",
 		"createEntrypointPrompt": "Создайте точку входа для начала работы.",
 		"createEntrypoint": "Создать точку входа",
-		"noMiddlewares": "Промежуточные обработчики не найдено",
-		"createMiddlewarePrompt": "Создайте промежуточное ПО для аутентификации, ограничения запросов и других задач.",
-		"createMiddleware": "Создать промежуточное ПО",
+		"noMiddlewares": "Обработчики не найдены",
+		"createMiddlewarePrompt": "Создайте обработчик для аутентификации, ограничения запросов и других задач.",
+		"createMiddleware": "Создать обработчик",
 		"entrypoints": "Точки входа",
 		"addServer": "Добавить сервер",
 		"healthcheck": "Проверка состояния",
@@ -384,7 +384,7 @@
 		"dnsTitle": "DNS-провайдеры - Mantrae",
 		"routersTitle": "Маршрутизаторы - Mantrae",
 		"routersDesc": "Управление маршрутизаторами и сервисами",
-		"middlewaresTitle": "Промежуточные обработчики - Mantrae",
+		"middlewaresTitle": "Обработчики - Mantrae",
 		"entrypointsTitle": "Точки входа - Mantrae",
 		"transportsTitle": "Транспорт - Mantrae",
 		"agentsTitle": "Агенты - Mantrae",
@@ -396,7 +396,7 @@
 		"entrypointsDesc": "Настройка точек входа для приёма входящих подключений",
 		"transportsDesc": "Настройка HTTP и TCP серверных транспортов",
 		"agentsDesc": "Мониторинг и управление подключёнными агентами Mantrae",
-		"middlewaresDesc": "Управление HTTP и TCP промежуточными обработчиками",
+		"middlewaresDesc": "Управление HTTP и TCP обработчиками",
 		"settingsDesc": "Управление конфигурацией приложения и резервными копиями.",
 		"loginDesc": "Войдите в Mantrae для управления конфигурацией прокси"
 	}
