@@ -29,7 +29,9 @@
 		"password": "Пароль",
 		"signInButton": "Войти",
 		"orContinueWith": "Или продолжить через",
-		"loginWith": "Войти через {provider}"
+		"loginWith": "Войти через {provider}",
+		"welcomeBack": "С возвращением",
+		"loggedOut": "Вы вышли из системы"
 	},
 	"dashboard": {
 		"title": "Панель управления",
@@ -63,7 +65,10 @@
 		"lastLogin": "Последний вход",
 		"addUser": "Добавить пользователя",
 		"editUser": "Редактировать пользователя",
-		"deleteUser": "Удалить пользователя"
+		"deleteUser": "Удалить пользователя",
+		"userCreated": "Пользователь создан",
+		"userUpdated": "Пользователь обновлён",
+		"userDeleted": "Пользователь удалён"
 	},
 	"userModal": {
 		"description": "Настройка учётной записи и прав доступа",

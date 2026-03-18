@@ -3,6 +3,8 @@ import { useMutation, useQuery } from '$lib/query';
 import { UserService } from '$lib/gen/mantrae/v1/user_pb';
 import { goto } from '$app/navigation';
 import { queryClient } from './client';
+import { get } from 'svelte/store';
+import { _ } from 'svelte-i18n';
 
 export const user = {
 	// Queries
@@ -15,8 +17,8 @@ export const user = {
 	login: () =>
 		useMutation(UserService.method.loginUser, {
 			onSuccess: () => {
+				toast.success(get(_)('auth.welcomeBack', { default: 'Welcome back' }));
 				goto('/');
-				toast.success('Welcome back 👋');
 			}
 		}),
 	logout: () =>
@@ -25,19 +27,19 @@ export const user = {
 				queryClient.cancelQueries();
 				queryClient.clear();
 				goto('/login');
-				toast.success('Logged out 👋');
+				toast.success(get(_)('auth.loggedOut', { default: 'Logged out' }));
 			}
 		}),
 	create: () =>
 		useMutation(UserService.method.createUser, {
-			onSuccess: () => toast.success('User created')
+			onSuccess: () => toast.success(get(_)('users.userCreated', { default: 'User created' }))
 		}),
 	update: () =>
 		useMutation(UserService.method.updateUser, {
-			onSuccess: () => toast.success('User updated')
+			onSuccess: () => toast.success(get(_)('users.userUpdated', { default: 'User updated' }))
 		}),
 	delete: () =>
 		useMutation(UserService.method.deleteUser, {
-			onSuccess: () => toast.success('User deleted')
+			onSuccess: () => toast.success(get(_)('users.userDeleted', { default: 'User deleted' }))
 		})
 };

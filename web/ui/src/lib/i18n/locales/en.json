@@ -29,7 +29,9 @@
 		"password": "Password",
 		"signInButton": "Sign In",
 		"orContinueWith": "Or continue With",
-		"loginWith": "Login with {provider}"
+		"loginWith": "Login with {provider}",
+		"welcomeBack": "Welcome back",
+		"loggedOut": "Logged out"
 	},
 	"dashboard": {
 		"title": "Dashboard",
@@ -63,7 +65,10 @@
 		"lastLogin": "Last Login",
 		"addUser": "Add User",
 		"editUser": "Edit User",
-		"deleteUser": "Delete User"
+		"deleteUser": "Delete User",
+		"userCreated": "User created",
+		"userUpdated": "User updated",
+		"userDeleted": "User deleted"
 	},
 	"userModal": {
 		"description": "Configure user account details and permissions",
