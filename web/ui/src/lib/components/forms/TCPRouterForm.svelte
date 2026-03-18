@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { Badge } from '$lib/components/ui/badge/index.js';
+	import { _ } from 'svelte-i18n';
 	import { Input } from '$lib/components/ui/input/index.js';
+	import { _ } from 'svelte-i18n';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import * as Select from '$lib/components/ui/select/index.js';
 	import { ProtocolType } from '$lib/gen/mantrae/v1/protocol_pb';
@@ -57,7 +59,7 @@
 <div class="flex flex-col gap-3">
 	<!-- Entrypoints -->
 	<div class="flex flex-col gap-2">
-		<Label class="mr-2">Entrypoints</Label>
+		<Label class="mr-2">{$_('forms.entrypoints')}</Label>
 		<Select.Root type="multiple" bind:value={config.entryPoints}>
 			<Select.Trigger class="w-full">
 				{config.entryPoints?.join(', ') || 'Select entrypoints'}

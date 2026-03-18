@@ -1,8 +1,12 @@
 <script lang="ts">
 	import { Input } from '$lib/components/ui/input';
+	import { _ } from 'svelte-i18n';
 	import { Label } from '$lib/components/ui/label';
+	import { _ } from 'svelte-i18n';
 	import { Textarea } from '$lib/components/ui/textarea';
+	import { _ } from 'svelte-i18n';
 	import { MiddlewareSchema, TCPMiddlewareSchema } from '$lib/gen/zen/traefik-schemas';
+	import { _ } from 'svelte-i18n';
 	import type { JsonObject, JsonValue } from '@bufbuild/protobuf';
 	import DynamicForm from './DynamicForm.svelte';
 	import CustomSwitch from '../ui/custom-switch/custom-switch.svelte';
@@ -338,7 +342,7 @@
 
 							<Button variant="outline" size="sm" onclick={() => addRecordEntry(field.path)}>
 								<Plus size={16} />
-								Add Entry
+								{$_('forms.addEntry')}
 							</Button>
 						</div>
 					{:else if field.type === 'object' && isNestedObject(field)}

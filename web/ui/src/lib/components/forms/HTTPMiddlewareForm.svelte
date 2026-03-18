@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { JsonObject } from '@bufbuild/protobuf';
+	import { _ } from 'svelte-i18n';
 	import * as Select from '$lib/components/ui/select/index.js';
+	import { _ } from 'svelte-i18n';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { type Middleware } from '$lib/gen/mantrae/v1/middleware_pb';
 	import { MiddlewareSchema } from '$lib/gen/zen/traefik-schemas';

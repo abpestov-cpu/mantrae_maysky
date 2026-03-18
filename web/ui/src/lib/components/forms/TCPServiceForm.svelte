@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { Input } from '$lib/components/ui/input/index.js';
+	import { _ } from 'svelte-i18n';
 	import { Label } from '$lib/components/ui/label/index.js';
+	import { _ } from 'svelte-i18n';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { type Service } from '$lib/gen/mantrae/v1/service_pb';
 	import { ChevronDown, Plus, Trash } from '@lucide/svelte';
@@ -87,7 +89,7 @@
 		onclick={() => (servers = [...servers, { address: '' }])}
 	>
 		<Plus />
-		Add Server
+		{$_('forms.addServer')}
 	</Button>
 
 	<!-- Advanced Options -->
@@ -111,7 +113,7 @@
 				<!-- Healthcheck -->
 				<div class="flex items-center justify-between">
 					<div>
-						<Label class="text-sm">Healthcheck</Label>
+						<Label class="text-sm">{$_('forms.healthcheck')}</Label>
 						<p class="text-xs text-muted-foreground">Monitor backend health</p>
 					</div>
 					<CustomSwitch bind:checked={healthcheck} onCheckedChange={updateConfig} size="md" />
@@ -151,7 +153,7 @@
 							</span>
 						</Select.Trigger>
 						<Select.Content>
-							<Select.Item value="">Default</Select.Item>
+							<Select.Item value="">{$_('forms.default')}</Select.Item>
 							{#each transports.data || [] as t (t.id)}
 								<Select.Item value={t.name}>
 									<span class="truncate">{t.name}</span>

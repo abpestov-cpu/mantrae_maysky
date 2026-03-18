@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { ServersTransport } from '$lib/gen/mantrae/v1/servers_transport_pb';
+	import { _ } from 'svelte-i18n';
 	import { type TCPServersTransport } from '$lib/gen/zen/traefik-schemas';
+	import { _ } from 'svelte-i18n';
 	import { marshalConfig, unmarshalConfig } from '$lib/types';
 	import { Button } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
@@ -161,7 +163,7 @@
 
 	<div class="space-y-2">
 		<div class="flex flex-col gap-1 pb-2">
-			<Label for="rootCAs" class="text-sm font-medium">Certificates</Label>
+			<Label for="rootCAs" class="text-sm font-medium">{$_('forms.certificates')}</Label>
 			<p class="text-xs text-muted-foreground">Configure TLS certificates</p>
 		</div>
 
@@ -187,7 +189,7 @@
 			{/each}
 			<Button variant="outline" onclick={addRootCA} class="w-full">
 				<Plus />
-				Add Root CA
+				{$_('forms.addRootCA')}
 			</Button>
 		</div>
 
@@ -239,7 +241,7 @@
 			{/each}
 			<Button variant="outline" onclick={addCertificate} class="w-full">
 				<Plus />
-				Add Certificate
+				{$_('forms.addCertificate')}
 			</Button>
 		</div>
 	</div>
@@ -289,7 +291,7 @@
 			{/each}
 			<Button variant="outline" onclick={addSpiffeId} class="w-full">
 				<Plus />
-				Add SPIFFE ID
+				{$_('forms.addSpiffeId')}
 			</Button>
 		</div>
 	</div>

@@ -18,6 +18,8 @@
 	import { ProtocolType } from '$lib/gen/mantrae/v1/protocol_pb';
 	import { middleware } from '$lib/api/middleware.svelte';
 	import { toast } from 'svelte-sonner';
+	import { get } from 'svelte/store';
+	import { _ } from 'svelte-i18n';
 
 	// State
 	let open = $state(false);
@@ -62,7 +64,7 @@
 			const middlewares = data.http?.middlewares;
 
 			if (!middlewares) {
-				toast.error('Invalid plugin snippet format');
+				toast.error(get(_)('plugins.invalidFormat'));
 				return;
 			}
 
@@ -70,7 +72,7 @@
 			const name = Object.keys(pluginContent?.plugin || {})[0];
 
 			if (!name) {
-				toast.error('Could not determine plugin name');
+				toast.error(get(_)('plugins.cannotDetermineName'));
 				return;
 			}
 
@@ -86,7 +88,7 @@
 			open = true;
 		} catch (e) {
 			console.error(e);
-			toast.error('Failed to prepare plugin installation');
+			toast.error(get(_)('plugins.prepareFailed'));
 		}
 	}
 
@@ -186,7 +188,7 @@
 				<Package class="h-6 w-6 text-muted-foreground" />
 			</div>
 			<div class="space-y-1">
-				<h3 class="font-semibold">No plugins found</h3>
+				<h3 class="font-semibold">{$_('plugins.noPlugins')}</h3>
 				<p class="text-sm text-muted-foreground">
 					Try adjusting your search terms or browse all plugins.
 				</p>
@@ -226,7 +228,7 @@
 						</div>
 
 						<Card.Description class="line-clamp-3 h-16 text-sm">
-							{plugin.summary || 'No description available.'}
+							{plugin.summary || $_('plugins.noDescription')}
 						</Card.Description>
 					</Card.Header>
 

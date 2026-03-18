@@ -1,6 +1,8 @@
 <script lang="ts">
 	import * as Select from '$lib/components/ui/select/index.js';
+	import { _ } from 'svelte-i18n';
 	import { Label } from '$lib/components/ui/label/index.js';
+	import { _ } from 'svelte-i18n';
 	import { type Router } from '$lib/gen/mantrae/v1/router_pb';
 	import type { UDPRouter } from '$lib/gen/zen/traefik-schemas';
 	import { Star } from '@lucide/svelte';
@@ -29,7 +31,7 @@
 <div class="flex flex-col gap-3">
 	<!-- Entrypoints -->
 	<div class="flex flex-col gap-2">
-		<Label class="mr-2">Entrypoints</Label>
+		<Label class="mr-2">{$_('forms.entrypoints')}</Label>
 		<Select.Root type="multiple" bind:value={config.entryPoints}>
 			<Select.Trigger class="w-full">
 				{config.entryPoints?.join(', ') || 'Select entrypoints'}

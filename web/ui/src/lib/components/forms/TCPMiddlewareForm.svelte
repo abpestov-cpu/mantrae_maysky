@@ -1,6 +1,8 @@
 <script lang="ts">
 	import * as Select from '$lib/components/ui/select/index.js';
+	import { _ } from 'svelte-i18n';
 	import { Label } from '$lib/components/ui/label/index.js';
+	import { _ } from 'svelte-i18n';
 	import { type Middleware } from '$lib/gen/mantrae/v1/middleware_pb';
 	import { unmarshalConfig, marshalConfig } from '$lib/types';
 	import { TCPMiddlewareSchema } from '$lib/gen/zen/traefik-schemas';

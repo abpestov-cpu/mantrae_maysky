@@ -38,6 +38,7 @@
 	} from '@lucide/svelte';
 	import BulkActions from './BulkActions.svelte';
 	import type { BulkAction } from './types';
+	import { _ } from 'svelte-i18n';
 	import { pageIndex, pageSize } from '$lib/store.svelte';
 
 	type DataTableProps<TData, TValue> = {
@@ -222,7 +223,7 @@
 		<div class="relative flex items-center">
 			<Search class="absolute left-3 text-muted-foreground" size={16} />
 			<Input
-				placeholder="Search..."
+				placeholder={$_('common.search')}
 				bind:value={globalFilter}
 				oninput={() => table.setGlobalFilter(String(globalFilter))}
 				class="w-full pl-9 sm:w-[180px] lg:w-[350px]"
@@ -235,7 +236,7 @@
 		</div>
 
 		{#if table.getState().columnFilters.length > 0}
-			<Button onclick={() => table.setColumnFilters([])}>Clear Filters</Button>
+			<Button onclick={() => table.setColumnFilters([])}>{$_('common.clearFilters')}</Button>
 			{#each table.getState().columnFilters as filter (filter.id)}
 				<Badge
 					variant="secondary"
@@ -252,7 +253,7 @@
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger>
 				{#snippet child({ props })}
-					<Button {...props} variant="outline" class="ml-auto">Columns</Button>
+					<Button {...props} variant="outline" class="ml-auto">{$_('common.columns')}</Button>
 				{/snippet}
 			</DropdownMenu.Trigger>
 			<DropdownMenu.Content align="end">
@@ -327,13 +328,13 @@
 						</Table.Row>
 					{:else}
 						<Table.Row>
-							<Table.Cell colspan={columns.length} class="h-24 text-center">No results.</Table.Cell>
+							<Table.Cell colspan={columns.length} class="h-24 text-center">{$_('common.noResults')}</Table.Cell>
 						</Table.Row>
 					{/each}
 				</Table.Body>
 				<Table.Footer>
 					<Table.Row class="border-t">
-						<Table.Cell colspan={columns.length}>Total</Table.Cell>
+						<Table.Cell colspan={columns.length}>{$_('common.total')}</Table.Cell>
 						<Table.Cell class="mr-4 text-right">
 							{table.getPaginationRowModel().rows.length}
 						</Table.Cell>
@@ -392,7 +393,7 @@
 				<ChevronLeft />
 			</Button>
 			<span class="text-sm text-muted-foreground">
-				Page {pagination.pageIndex + 1} / {table.getPageCount()}
+				{$_('common.page', { values: { current: pagination.pageIndex + 1, total: table.getPageCount() } })}
 			</span>
 			<Button
 				variant="outline"
