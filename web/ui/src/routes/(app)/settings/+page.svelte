@@ -19,6 +19,7 @@
 	import { Download, Loader, RefreshCw, RotateCcw, Trash2, Upload } from '@lucide/svelte';
 	import { toast } from 'svelte-sonner';
 	import { settingGroups, storageTypes } from './settings';
+	import { _ } from 'svelte-i18n';
 
 	// Settings Data
 	const settings = $derived(setting.list());
@@ -143,7 +144,7 @@
 </script>
 
 <svelte:head>
-	<title>Settings - Mantrae</title>
+	<title>{$_('meta.settingsTitle')}</title>
 </svelte:head>
 
 <div class="container mx-auto max-w-7xl">

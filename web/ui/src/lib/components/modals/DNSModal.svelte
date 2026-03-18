@@ -17,6 +17,7 @@
 	import PasswordInput from '../ui/password-input/password-input.svelte';
 	import Separator from '../ui/separator/separator.svelte';
 	import { dns } from '$lib/api/dns.svelte';
+	import { _ } from 'svelte-i18n';
 	import { util } from '$lib/api/util.svelte';
 
 	interface Props {
@@ -49,9 +50,9 @@
 <Dialog.Root bind:open>
 	<Dialog.Content class="no-scrollbar max-h-[95vh] w-[500px] overflow-y-auto">
 		<Dialog.Header>
-			<Dialog.Title>{dnsData?.id ? 'Edit' : 'Add'} DNS Provider</Dialog.Title>
+			<Dialog.Title>{dnsData?.id ? $_('common.edit') : $_('common.add')} {$_('dns.title')}</Dialog.Title>
 			<Dialog.Description>
-				Configure automated DNS record management for your domains
+				{$_('dnsModal.description')}
 			</Dialog.Description>
 		</Dialog.Header>
 
@@ -60,13 +61,13 @@
 			<div class="space-y-4">
 				<div class="grid grid-cols-3 gap-2">
 					<div class="col-span-2 space-y-2">
-						<Label for="name" class="text-sm">Provider Name</Label>
-						<Input id="name" bind:value={dnsData.name} required placeholder="e.g., Cloudflare" />
-						<p class="text-xs text-muted-foreground">Friendly name for this provider</p>
+						<Label for="name" class="text-sm">{$_('dnsModal.providerName')}</Label>
+						<Input id="name" bind:value={dnsData.name} required placeholder={$_('dnsModal.providerNamePlaceholder')} />
+						<p class="text-xs text-muted-foreground">{$_('dnsModal.providerNameHelp')}</p>
 					</div>
 
 					<div class="space-y-2">
-						<Label for="type" class="text-sm">Type</Label>
+						<Label for="type" class="text-sm">{$_('dnsModal.type')}</Label>
 						<Select.Root
 							type="single"
 							name="type"
@@ -91,16 +92,16 @@
 			<!-- Provider Settings -->
 			<div class="space-y-4">
 				<div class="space-y-2">
-					<Label class="text-sm font-medium">Provider Settings</Label>
-					<p class="text-xs text-muted-foreground">Configure how this DNS provider should behave</p>
+					<Label class="text-sm font-medium">{$_('dnsModal.providerSettings')}</Label>
+					<p class="text-xs text-muted-foreground">{$_('dnsModal.providerSettingsHelp')}</p>
 				</div>
 
 				<div class="space-y-4">
-					<!-- Default Provider -->
+					<!-- {$_('dnsModal.defaultProvider')} -->
 					<div class="flex items-center justify-between rounded-lg border p-3">
 						<div class="space-y-1">
 							<Label class="flex items-center gap-1 text-sm">
-								Default Provider
+								{$_('dnsModal.defaultProvider')}
 								<Tooltip.Provider>
 									<Tooltip.Root>
 										<Tooltip.Trigger>
@@ -115,16 +116,16 @@
 									</Tooltip.Root>
 								</Tooltip.Provider>
 							</Label>
-							<p class="text-xs text-muted-foreground">Use for new routers by default</p>
+							<p class="text-xs text-muted-foreground">{$_('dnsModal.useForNewRouters')}</p>
 						</div>
 						<CustomSwitch bind:checked={dnsData.isDefault} size="md" />
 					</div>
 
-					<!-- Auto Update IP -->
+					<!-- {$_('dnsModal.autoUpdateIp')} -->
 					<div class="flex items-center justify-between rounded-lg border p-3">
 						<div class="space-y-1">
 							<Label class="flex items-center gap-1 text-sm">
-								Auto Update IP
+								{$_('dnsModal.autoUpdateIp')}
 								<Tooltip.Provider>
 									<Tooltip.Root>
 										<Tooltip.Trigger>
@@ -139,7 +140,7 @@
 									</Tooltip.Root>
 								</Tooltip.Provider>
 							</Label>
-							<p class="text-xs text-muted-foreground">Automatically sync with public IP</p>
+							<p class="text-xs text-muted-foreground">{$_('dnsModal.autoSyncPublicIp')}</p>
 						</div>
 						<CustomSwitch
 							checked={dnsData.config?.autoUpdate}
@@ -224,7 +225,7 @@
 								if (dnsData.config === undefined) dnsData.config = {} as DNSProviderConfig;
 								dnsData.config.ip = input.value;
 							}}
-							placeholder="Enter IP address for DNS records"
+							placeholder={$_('dnsModal.ipPlaceholder')}
 							required
 						/>
 						<p class="text-xs text-muted-foreground">Static IP address for DNS record creation</p>
@@ -237,7 +238,7 @@
 			<!-- Authentication -->
 			<div class="space-y-4">
 				<div class="space-y-2">
-					<Label class="text-sm font-medium">Authentication</Label>
+					<Label class="text-sm font-medium">{$_('dnsModal.authentication')}</Label>
 					<p class="text-xs text-muted-foreground">
 						Provide credentials to access your DNS provider's API
 					</p>
@@ -255,7 +256,7 @@
 								if (dnsData.config === undefined) dnsData.config = {} as DNSProviderConfig;
 								dnsData.config.apiKey = input.value;
 							}}
-							placeholder="Enter your API key"
+							placeholder={$_('dnsModal.apiKeyPlaceholder')}
 						/>
 						<p class="text-xs text-muted-foreground">API key from your DNS provider</p>
 					</div>
@@ -287,7 +288,7 @@
 
 			<Separator />
 
-			<Button type="submit" class="w-full">{dnsData.id ? 'Update' : 'Create'}</Button>
+			<Button type="submit" class="w-full">{dnsData.id ? $_('common.update') : $_('common.create')}</Button>
 		</form>
 	</Dialog.Content>
 </Dialog.Root>
