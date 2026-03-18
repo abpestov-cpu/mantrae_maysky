@@ -2,7 +2,6 @@
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { _ } from 'svelte-i18n';
 	import { Label } from '$lib/components/ui/label/index.js';
-	import { _ } from 'svelte-i18n';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { type Service } from '$lib/gen/mantrae/v1/service_pb';
 	import { ChevronDown, Plus, Trash } from '@lucide/svelte';

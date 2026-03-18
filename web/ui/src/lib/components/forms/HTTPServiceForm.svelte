@@ -2,11 +2,8 @@
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { _ } from 'svelte-i18n';
 	import { Label } from '$lib/components/ui/label/index.js';
-	import { _ } from 'svelte-i18n';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { _ } from 'svelte-i18n';
 	import * as Select from '$lib/components/ui/select/index.js';
-	import { _ } from 'svelte-i18n';
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import { type Service } from '$lib/gen/mantrae/v1/service_pb';
 	import {

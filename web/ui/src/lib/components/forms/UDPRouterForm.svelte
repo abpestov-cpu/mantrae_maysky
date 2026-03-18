@@ -2,7 +2,6 @@
 	import * as Select from '$lib/components/ui/select/index.js';
 	import { _ } from 'svelte-i18n';
 	import { Label } from '$lib/components/ui/label/index.js';
-	import { _ } from 'svelte-i18n';
 	import { type Router } from '$lib/gen/mantrae/v1/router_pb';
 	import type { UDPRouter } from '$lib/gen/zen/traefik-schemas';
 	import { Star } from '@lucide/svelte';

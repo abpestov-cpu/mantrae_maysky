@@ -2,7 +2,6 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { _ } from 'svelte-i18n';
 	import { Input } from '$lib/components/ui/input/index.js';
-	import { _ } from 'svelte-i18n';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import * as Select from '$lib/components/ui/select/index.js';
 	import { ProtocolType } from '$lib/gen/mantrae/v1/protocol_pb';

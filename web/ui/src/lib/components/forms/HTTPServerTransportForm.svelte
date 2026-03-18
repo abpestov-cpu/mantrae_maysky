@@ -2,7 +2,6 @@
 	import type { ServersTransport } from '$lib/gen/mantrae/v1/servers_transport_pb';
 	import { _ } from 'svelte-i18n';
 	import { type ServersTransport as HTTPServersTransport } from '$lib/gen/zen/traefik-schemas';
-	import { _ } from 'svelte-i18n';
 	import { marshalConfig, unmarshalConfig } from '$lib/types';
 	import { Button } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
