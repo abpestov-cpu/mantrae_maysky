@@ -427,7 +427,7 @@
 				<Card.Header class="flex flex-row items-center justify-between">
 					<Card.Title class="flex items-center gap-2 text-base">
 						<Clock class="h-4 w-4 text-muted-foreground" />
-						Recent Activity
+						{$_('dashboard.recentActivity')}
 					</Card.Title>
 					<Button
 						variant="ghost"
@@ -435,7 +435,7 @@
 						class="h-8 text-xs"
 						onclick={() => (modalAuditLogOpen = true)}
 					>
-						View All
+						{$_('dashboard.viewAll')}
 					</Button>
 				</Card.Header>
 				<Card.Content>

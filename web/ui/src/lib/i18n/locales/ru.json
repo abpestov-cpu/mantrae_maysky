@@ -53,6 +53,8 @@
 		"activeAgents": "Активные агенты",
 		"noDescription": "Описание отсутствует",
 		"noProfileSelected": "Профиль не выбран",
+		"recentActivity": "Последняя активность",
+		"viewAll": "Показать все",
 		"noRecentLogs": "Журнал записей пуст.",
 		"profileSwitcher": "Выбор профиля",
 		"noProfiles": "Профили не найдены.",

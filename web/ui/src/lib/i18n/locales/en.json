@@ -53,6 +53,8 @@
 		"activeAgents": "Active Agents",
 		"noDescription": "No description provided",
 		"noProfileSelected": "No Profile Selected",
+		"recentActivity": "Recent Activity",
+		"viewAll": "View All",
 		"noRecentLogs": "No recent logs found.",
 		"profileSwitcher": "Profile Switcher",
 		"noProfiles": "No profiles found.",
