@@ -11,6 +11,7 @@
 	import { ProtocolType } from '$lib/gen/mantrae/v1/protocol_pb';
 	import { protocolTypes } from '$lib/types';
 	import { middleware } from '$lib/api/middleware.svelte';
+	import { _ } from 'svelte-i18n';
 
 	interface Props {
 		data?: Middleware;
@@ -41,19 +42,19 @@
 <Dialog.Root bind:open>
 	<Dialog.Content class="no-scrollbar max-h-[80vh] max-w-2xl overflow-y-auto">
 		<Dialog.Header>
-			<Dialog.Title>{mwData.id ? 'Edit' : 'Create'} Middleware</Dialog.Title>
-			<Dialog.Description>Configure your Traefik middleware</Dialog.Description>
+			<Dialog.Title>{mwData.id ? $_('common.edit') : $_('common.create')} {$_('nav.middlewares')}</Dialog.Title>
+			<Dialog.Description>{$_('middlewareModal.description')}</Dialog.Description>
 		</Dialog.Header>
 
 		<form {onsubmit} class="flex flex-col gap-4">
 			<div class="grid w-full grid-cols-3 gap-2">
 				<div class="col-span-2 flex flex-col gap-2">
-					<Label for="name">Name</Label>
-					<Input id="name" bind:value={mwData.name} required placeholder="Middleware Name" />
+					<Label for="name">{$_('middlewareModal.name')}</Label>
+					<Input id="name" bind:value={mwData.name} required placeholder={$_('middlewareModal.namePlaceholder')} />
 				</div>
 
 				<div class="col-span-1 flex flex-col gap-2">
-					<Label for="type" class="text-right">Protocol</Label>
+					<Label for="type" class="text-right">{$_('middlewareModal.protocol')}</Label>
 					<Select.Root
 						type="single"
 						name="type"
@@ -65,7 +66,7 @@
 						</Select.Trigger>
 						<Select.Content>
 							<Select.Group>
-								<Select.Label>Middleware Type</Select.Label>
+								<Select.Label>{$_('middlewareModal.type')}</Select.Label>
 								{#each protocolTypes as t (t.value)}
 									<!-- Skip UDP -->
 									{#if t.value !== ProtocolType.UDP}
@@ -89,7 +90,7 @@
 
 			<Separator />
 
-			<Button type="submit" class="w-full">{mwData.id ? 'Update' : 'Create'}</Button>
+			<Button type="submit" class="w-full">{mwData.id ? $_('common.update') : $_('common.create')}</Button>
 		</form>
 	</Dialog.Content>
 </Dialog.Root>

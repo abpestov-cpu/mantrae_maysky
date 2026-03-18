@@ -8,6 +8,7 @@
 	import { Search, User, Bot, TriangleAlert } from '@lucide/svelte';
 	import type { AuditLog } from '$lib/gen/mantrae/v1/auditlog_pb';
 	import { audit } from '$lib/api/util.svelte';
+	import { _ } from 'svelte-i18n';
 
 	interface Props {
 		open?: boolean;
@@ -67,22 +68,22 @@
 		<Dialog.Header class="space-y-3 py-2">
 			<div class="flex items-center justify-between">
 				<div class="space-y-1">
-					<Dialog.Title class="text-lg font-semibold">Audit Logs</Dialog.Title>
+					<Dialog.Title class="text-lg font-semibold">{$_('auditLog.title')}</Dialog.Title>
 					<Dialog.Description>
-						System activity and security events across all users and agents
+						{$_('auditLog.description')}
 					</Dialog.Description>
 				</div>
 			</div>
 
 			<!-- Search -->
 			<div class="space-y-2">
-				<Label for="search" class="text-sm font-medium">Search Logs</Label>
+				<Label for="search" class="text-sm font-medium">{$_('auditLog.searchLogs')}</Label>
 				<div class="relative">
 					<Search class="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 					<Input
 						id="search"
 						bind:value={searchQuery}
-						placeholder="Search by activity, user, or agent..."
+						placeholder={$_('auditLog.searchPlaceholder')}
 						class="pl-10"
 					/>
 				</div>
@@ -97,7 +98,7 @@
 					<div class="space-y-2 text-center">
 						<TriangleAlert class="mx-auto h-8 w-8 text-muted-foreground" />
 						<p class="text-sm text-muted-foreground">
-							{searchQuery ? 'No logs match your search criteria' : 'No audit logs found'}
+							{searchQuery ? $_('auditLog.noMatchingLogs') : $_('auditLog.noLogs')}
 						</p>
 					</div>
 				</div>
