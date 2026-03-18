@@ -58,7 +58,13 @@
 		"noRecentLogs": "No recent logs found.",
 		"profileSwitcher": "Profile Switcher",
 		"noProfiles": "No profiles found.",
-		"createNewProfile": "Create New Profile"
+		"createNewProfile": "Create New Profile",
+		"statRouters": "Routers",
+		"statServices": "Services",
+		"statMiddlewares": "Middlewares",
+		"statEntrypoints": "Entrypoints",
+		"statTransports": "Server Transports",
+		"protocols": "Protocols"
 	},
 	"users": {
 		"title": "User Management",

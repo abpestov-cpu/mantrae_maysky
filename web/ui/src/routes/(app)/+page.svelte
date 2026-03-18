@@ -311,35 +311,35 @@
 									<Route class="h-6 w-6" />
 								</div>
 								<div class="text-2xl font-bold">{routerList.data?.length ?? 0}</div>
-								<div class="text-xs text-muted-foreground">Routers</div>
+								<div class="text-xs text-muted-foreground">{$_('dashboard.statRouters')}</div>
 							</div>
 							<div class="rounded-lg bg-secondary/30 p-4 text-center">
 								<div class="mb-1 flex justify-center text-orange-500">
 									<Server class="h-6 w-6" />
 								</div>
 								<div class="text-2xl font-bold">{serviceList.data?.length ?? 0}</div>
-								<div class="text-xs text-muted-foreground">Services</div>
+								<div class="text-xs text-muted-foreground">{$_('dashboard.statServices')}</div>
 							</div>
 							<div class="rounded-lg bg-secondary/30 p-4 text-center">
 								<div class="mb-1 flex justify-center text-purple-500">
 									<Layers class="h-6 w-6" />
 								</div>
 								<div class="text-2xl font-bold">{middlewareList.data?.length ?? 0}</div>
-								<div class="text-xs text-muted-foreground">Middlewares</div>
+								<div class="text-xs text-muted-foreground">{$_('dashboard.statMiddlewares')}</div>
 							</div>
 							<div class="rounded-lg bg-secondary/30 p-4 text-center">
 								<div class="mb-1 flex justify-center text-green-500">
 									<EthernetPort class="h-6 w-6" />
 								</div>
 								<div class="text-2xl font-bold">{entrypointList.data?.length ?? 0}</div>
-								<div class="text-xs text-muted-foreground">Entrypoints</div>
+								<div class="text-xs text-muted-foreground">{$_('dashboard.statEntrypoints')}</div>
 							</div>
 							<div class="rounded-lg bg-secondary/30 p-4 text-center">
 								<div class="mb-1 flex justify-center text-red-500">
 									<TruckIcon class="h-6 w-6" />
 								</div>
 								<div class="text-2xl font-bold">{transportList.data?.length ?? 0}</div>
-								<div class="text-xs text-muted-foreground">Server Transports</div>
+								<div class="text-xs text-muted-foreground">{$_('dashboard.statTransports')}</div>
 							</div>
 						</div>
 
@@ -348,7 +348,7 @@
 						<div class="grid gap-6 md:grid-cols-2">
 							<!-- Router Breakdown -->
 							<div class="space-y-3">
-								<h4 class="text-sm font-semibold text-muted-foreground">Protocols</h4>
+								<h4 class="text-sm font-semibold text-muted-foreground">{$_('dashboard.protocols')}</h4>
 								<div class="space-y-2">
 									<div class="flex items-center justify-between text-sm">
 										<span class="flex items-center gap-2"
@@ -385,7 +385,7 @@
 
 							<!-- Middleware Breakdown -->
 							<div class="space-y-3">
-								<h4 class="text-sm font-semibold text-muted-foreground">Middlewares</h4>
+								<h4 class="text-sm font-semibold text-muted-foreground">{$_('dashboard.statMiddlewares')}</h4>
 								<div class="space-y-2">
 									<div class="flex items-center justify-between text-sm">
 										<span class="flex items-center gap-2"

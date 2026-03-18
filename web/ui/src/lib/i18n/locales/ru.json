@@ -58,7 +58,13 @@
 		"noRecentLogs": "Журнал записей пуст.",
 		"profileSwitcher": "Выбор профиля",
 		"noProfiles": "Профили не найдены.",
-		"createNewProfile": "Создать профиль"
+		"createNewProfile": "Создать профиль",
+		"statRouters": "Маршрутизаторы",
+		"statServices": "Сервисы",
+		"statMiddlewares": "Обработчики",
+		"statEntrypoints": "Точки входа",
+		"statTransports": "Транспорт",
+		"protocols": "Протоколы"
 	},
 	"users": {
 		"title": "Управление пользователями",
