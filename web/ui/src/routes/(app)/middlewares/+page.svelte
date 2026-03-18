@@ -215,7 +215,7 @@
 	<title>{$_('meta.middlewaresTitle')}</title>
 	<meta
 		name="description"
-		content="Manage HTTP and TCP middlewares to customize your reverse proxy behavior"
+		content={$_('meta.middlewaresDesc')}
 	/>
 </svelte:head>
 
@@ -228,9 +228,9 @@
 				<div class="rounded-lg bg-primary/10 p-2">
 					<Layers class="h-6 w-6 text-primary" />
 				</div>
-				Middlewares
+				{$_('middlewares.title')}
 			</h1>
-			<p class="mt-1 text-muted-foreground">Configure your middlewares</p>
+			<p class="mt-1 text-muted-foreground">{$_('meta.middlewaresDesc')}</p>
 		</div>
 	</div>
 
