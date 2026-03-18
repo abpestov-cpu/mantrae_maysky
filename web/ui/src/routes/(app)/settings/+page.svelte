@@ -111,7 +111,7 @@
 			a.click();
 			URL.revokeObjectURL(url);
 		} catch (err) {
-			toast.error('Download failed', { description: (err as Error).message });
+			toast.error($_('common.downloadFailed'), { description: (err as Error).message });
 		}
 	}
 
@@ -130,7 +130,7 @@
 			toast.success('Backup uploaded successfully');
 			backupList.refetch(); // Refresh list
 		} catch (err) {
-			toast.error('Upload failed', { description: (err as Error).message });
+			toast.error($_('common.uploadFailed'), { description: (err as Error).message });
 		} finally {
 			isUploading = false;
 			if (input) input.value = '';
@@ -171,7 +171,7 @@
 		<Tabs.Content value="general">
 			<Card.Root>
 				<Card.Header>
-					<Card.Title>General Configuration</Card.Title>
+					<Card.Title>{$_('settings.generalConfig')}</Card.Title>
 					<Card.Description>Core system settings.</Card.Description>
 				</Card.Header>
 				<Card.Content class="space-y-6">
@@ -198,7 +198,7 @@
 				<Card.Header>
 					<div class="flex items-center justify-between">
 						<div>
-							<Card.Title>Manage Backups</Card.Title>
+							<Card.Title>{$_('settings.manageBackups')}</Card.Title>
 							<Card.Description>Create, download, or restore from backups.</Card.Description>
 						</div>
 						<div class="flex gap-2">
@@ -219,7 +219,7 @@
 							</Button>
 							<Button onclick={() => createBackupMutation.mutate({})}>
 								<RefreshCw class="mr-2 size-4" />
-								Create Backup
+								{$_('settings.createBackup')}
 							</Button>
 						</div>
 					</div>
@@ -275,7 +275,7 @@
 															<Download class="size-4" />
 														</Button>
 													</Tooltip.Trigger>
-													<Tooltip.Content>Download</Tooltip.Content>
+													<Tooltip.Content>{$_('settings.download')}</Tooltip.Content>
 												</Tooltip.Root>
 
 												<Tooltip.Root>
@@ -289,7 +289,7 @@
 															<RotateCcw class="size-4" />
 														</Button>
 													</Tooltip.Trigger>
-													<Tooltip.Content>Restore</Tooltip.Content>
+													<Tooltip.Content>{$_('settings.restore')}</Tooltip.Content>
 												</Tooltip.Root>
 
 												<Tooltip.Root>
@@ -303,7 +303,7 @@
 															<Trash2 class="size-4" />
 														</Button>
 													</Tooltip.Trigger>
-													<Tooltip.Content>Delete</Tooltip.Content>
+													<Tooltip.Content>{$_('settings.delete')}</Tooltip.Content>
 												</Tooltip.Root>
 											</Tooltip.Provider>
 										</div>
@@ -312,7 +312,7 @@
 							{:else}
 								<Table.Row>
 									<Table.Cell colspan={5} class="text-center text-muted-foreground">
-										No backups found.
+										{$_('settings.noBackups')}
 									</Table.Cell>
 								</Table.Row>
 							{/each}

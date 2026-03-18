@@ -2,6 +2,7 @@
 	import * as Select from '$lib/components/ui/select/index.js';
 	import { Button } from '$lib/components/ui/button';
 	import type { BulkAction } from './types';
+	import { _ } from 'svelte-i18n';
 
 	export let selectedCount: number;
 	export let totalCount: number;
@@ -47,6 +48,6 @@
 		{/each}
 	</div>
 	<span class="text-sm text-muted-foreground">
-		{selectedCount} of {totalCount} item(s) selected.
+		{selectedCount} / {totalCount}
 	</span>
 </div>
