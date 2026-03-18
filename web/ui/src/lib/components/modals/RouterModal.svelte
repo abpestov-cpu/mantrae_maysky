@@ -142,8 +142,8 @@
 									>
 										<Select.Trigger>
 											{routerData.dnsProviders?.length > 0
-												? routerData.dnsProviders.length + ' Selected'
-												: 'None'}
+												? routerData.dnsProviders.length + ' ' + $_('routerModal.selected')
+												: $_('routerModal.none')}
 										</Select.Trigger>
 										<Select.Content align="end">
 											{#each dnsList.data || [] as dns (dns.id)}
@@ -167,9 +167,9 @@
 					<Card.Header>
 						<Card.Title class="flex items-center gap-2 text-muted-foreground">
 							<Server class="h-4 w-4" />
-							Router Configuration
+							{$_('routerModal.routerConfig')}
 						</Card.Title>
-						<Card.Description>View-only configuration managed by agent</Card.Description>
+						<Card.Description>{$_('routerModal.viewOnly')}</Card.Description>
 					</Card.Header>
 					<Card.Content>
 						<div class="grid grid-cols-2 gap-6">
@@ -178,19 +178,19 @@
 								<p class="font-medium">{routerData.name || 'Not set'}</p>
 							</div>
 							<div class="space-y-1">
-								<Label class="text-muted-foreground">Protocol</Label>
+								<Label class="text-muted-foreground">{$_('routerModal.protocol')}</Label>
 								<Badge variant="outline">
 									{protocolTypes.find((t) => t.value === routerData.type)?.label || 'Unknown'}
 								</Badge>
 							</div>
 							<div class="space-y-1">
-								<Label class="text-muted-foreground">Service Endpoint</Label>
+								<Label class="text-muted-foreground">{$_('routerModal.serviceEndpoint')}</Label>
 								<p class="text-sm font-medium">{servicePreview}</p>
 							</div>
 							<div class="space-y-1">
-								<Label class="text-muted-foreground">Status</Label>
+								<Label class="text-muted-foreground">{$_('routerModal.status')}</Label>
 								<Badge variant={routerData.enabled ? 'default' : 'secondary'}>
-									{routerData.enabled ? 'Enabled' : 'Disabled'}
+									{routerData.enabled ? $_('routerModal.enabled') : $_('routerModal.disabled')}
 								</Badge>
 							</div>
 						</div>
@@ -202,8 +202,8 @@
 		{:else}
 			<Tabs.Root value="router" class="mt-2 sm:mt-4">
 				<Tabs.List class="grid w-full grid-cols-2">
-					<Tabs.Trigger value="router">Router</Tabs.Trigger>
-					<Tabs.Trigger value="service">Service</Tabs.Trigger>
+					<Tabs.Trigger value="router">{$_('routerModal.router')}</Tabs.Trigger>
+					<Tabs.Trigger value="service">{$_('routerModal.service')}</Tabs.Trigger>
 				</Tabs.List>
 				<Tabs.Content value="router" class="space-y-4">
 					<Card.Root>
@@ -211,9 +211,9 @@
 							class="space-y-2 sm:flex sm:flex-row sm:items-center sm:justify-between sm:space-y-0"
 						>
 							<div>
-								<Card.Title class="flex items-center gap-2">Router Configuration</Card.Title>
+								<Card.Title class="flex items-center gap-2">{$_('routerModal.routerConfig')}</Card.Title>
 								<Card.Description class="text-sm text-muted-foreground">
-									Define how traffic is routed to your service
+									{$_('routerModal.routerConfigDesc')}
 								</Card.Description>
 							</div>
 
@@ -231,8 +231,8 @@
 								>
 									<Select.Trigger>
 										{routerData.dnsProviders?.length > 0
-											? routerData.dnsProviders.length + ' Selected'
-											: 'None'}
+											? routerData.dnsProviders.length + ' ' + $_('routerModal.selected')
+											: $_('routerModal.none')}
 									</Select.Trigger>
 									<Select.Content align="end">
 										{#each dnsList.data || [] as dns (dns.id)}
@@ -252,7 +252,7 @@
 								<div
 									class="flex flex-col gap-2 {routerData.id ? 'sm:col-span-3' : 'sm:col-span-2'}"
 								>
-									<Label for="name">Name</Label>
+									<Label for="name">{$_('routerModal.name')}</Label>
 									<Input
 										id="name"
 										bind:value={routerData.name}
@@ -264,7 +264,7 @@
 
 								{#if !routerData.id}
 									<div class="flex flex-col gap-2 sm:col-span-1">
-										<Label for="type">Protocol</Label>
+										<Label for="type">{$_('routerModal.protocol')}</Label>
 										<Select.Root
 											type="single"
 											name="type"
@@ -288,7 +288,7 @@
 											<Select.Trigger class="w-full">
 												<span class="truncate">
 													{protocolTypes.find((t) => t.value === routerData.type)?.label ??
-														'Select protocol'}
+														$_('routerModal.selectProtocol')}
 												</span>
 											</Select.Trigger>
 											<Select.Content>
@@ -318,7 +318,7 @@
 				<Tabs.Content value="service" class="space-y-4">
 					<Card.Root>
 						<Card.Header>
-							<Card.Title class="flex items-center gap-2">Service Configuration</Card.Title>
+							<Card.Title class="flex items-center gap-2">{$_('routerModal.serviceConfig')}</Card.Title>
 							<Card.Description>{$_('routerModal.configureBackend')}</Card.Description>
 						</Card.Header>
 						<Card.Content class="flex flex-col gap-3">
@@ -337,7 +337,7 @@
 			</Tabs.Root>
 
 			<Button type="submit" class="w-full" onclick={onsubmit}
-				>{routerData.id ? 'Update' : 'Create'}</Button
+				>{routerData.id ? $_('routerModal.update') : $_('routerModal.create')}</Button
 			>
 		{/if}
 	</Dialog.Content>

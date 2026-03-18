@@ -68,7 +68,7 @@
 
 <div class="flex flex-col gap-3">
 	<div class="flex flex-col gap-2">
-		<Label for="servers">Server Endpoints</Label>
+		<Label for="servers">{$_('forms.serverEndpoints')}</Label>
 		{#each servers || [] as server, i (i)}
 			<div class="flex gap-2">
 				<Input
@@ -104,7 +104,7 @@
 
 	<!-- TODO: Test other array inputs -->
 	<!-- <div class="flex flex-col gap-2"> -->
-	<!-- 	<Label for="servers">Server Endpoints</Label> -->
+	<!-- 	<Label for="servers">{$_('forms.serverEndpoints')}</Label> -->
 	<!-- 	<ArrayInput -->
 	<!-- 		bind:values={servers} -->
 	<!-- 		placeholder="http://127.0.0.1:8080" -->
@@ -121,7 +121,7 @@
 			class="flex w-full items-center justify-between rounded-lg border p-3 hover:bg-muted/50"
 		>
 			<div class="flex items-center gap-2">
-				<Label class="pointer-events-none text-sm font-medium">Advanced Options</Label>
+				<Label class="pointer-events-none text-sm font-medium">{$_('forms.advancedOptions')}</Label>
 				{#if sticky || healthcheck || serversTransport}
 					<span class="rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary">
 						{[sticky && 'Sticky', healthcheck && 'Health', serversTransport && 'Transport']
@@ -138,8 +138,8 @@
 				<!-- Pass Host Header -->
 				<div class="flex items-center justify-between">
 					<div>
-						<Label class="text-sm">Pass Host Header</Label>
-						<p class="text-xs text-muted-foreground">Forward client host header</p>
+						<Label class="text-sm">{$_('forms.passHostHeader')}</Label>
+						<p class="text-xs text-muted-foreground">{$_('forms.passHostHeaderDesc')}</p>
 					</div>
 					<CustomSwitch bind:checked={passHostHeader} onCheckedChange={updateConfig} size="md" />
 				</div>
@@ -149,8 +149,8 @@
 				<!-- Sticky Cookie -->
 				<div class="flex items-center justify-between">
 					<div>
-						<Label class="text-sm">Sticky Cookie</Label>
-						<p class="text-xs text-muted-foreground">Session persistence via cookie</p>
+						<Label class="text-sm">{$_('forms.stickyCookie')}</Label>
+						<p class="text-xs text-muted-foreground">{$_('forms.stickyCookieDesc')}</p>
 					</div>
 					<CustomSwitch bind:checked={sticky} onCheckedChange={updateConfig} size="md" />
 				</div>
@@ -159,7 +159,7 @@
 						type="text"
 						bind:value={cookie.name}
 						oninput={updateConfig}
-						placeholder="Cookie name (e.g., session)"
+						placeholder="{$_('forms.cookiePlaceholder')}"
 						class="text-sm"
 					/>
 				{/if}
@@ -170,7 +170,7 @@
 				<div class="flex items-center justify-between">
 					<div>
 						<Label class="text-sm">{$_('forms.healthcheck')}</Label>
-						<p class="text-xs text-muted-foreground">Monitor backend health</p>
+						<p class="text-xs text-muted-foreground">{$_('forms.healthcheckDesc')}</p>
 					</div>
 					<CustomSwitch bind:checked={healthcheck} onCheckedChange={updateConfig} size="md" />
 				</div>
@@ -208,7 +208,7 @@
 
 				<!-- Servers Transport -->
 				<div class="flex flex-col gap-2">
-					<Label class="text-sm">Servers Transport</Label>
+					<Label class="text-sm">{$_('forms.serversTransport')}</Label>
 					<Select.Root type="single" bind:value={serversTransport} onValueChange={updateConfig}>
 						<Select.Trigger class="w-full">
 							<span class="truncate text-left text-sm">

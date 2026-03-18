@@ -84,7 +84,7 @@
 			<Select.Root type="multiple" bind:value={config.entryPoints}>
 				<Select.Trigger class="w-full">
 					<span class="truncate text-left">
-						{formatArrayDisplay(config.entryPoints) || 'Select entrypoints'}
+						{formatArrayDisplay(config.entryPoints) || $_('forms.selectEntrypoints')}
 					</span>
 				</Select.Trigger>
 				<Select.Content>
@@ -124,11 +124,11 @@
 		</Alert.Root>
 	{:else}
 		<div class="flex flex-col gap-2">
-			<Label class="mr-2">Middlewares</Label>
+			<Label class="mr-2">{$_('forms.middlewaresLabel')}</Label>
 			<Select.Root type="multiple" bind:value={config.middlewares}>
 				<Select.Trigger class="w-full" disabled={mwList.data?.length === 0}>
 					<span class="truncate text-left">
-						{formatArrayDisplay(config.middlewares) || 'Select middlewares'}
+						{formatArrayDisplay(config.middlewares) || $_('forms.selectMiddlewares')}
 					</span>
 				</Select.Trigger>
 				<Select.Content>
@@ -144,8 +144,8 @@
 
 	<div class="flex items-center justify-between rounded-lg border p-3">
 		<div class="space-y-1">
-			<Label class="text-sm">Enable TLS</Label>
-			<p class="text-xs text-muted-foreground">Automatically enabled when a certResolver is set</p>
+			<Label class="text-sm">{$_('forms.enableTls')}</Label>
+			<p class="text-xs text-muted-foreground">{$_('forms.tlsAutoEnabled')}</p>
 		</div>
 
 		<CustomSwitch
@@ -160,7 +160,7 @@
 	<div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-2">
 		<!-- TLS Configuration -->
 		<div class="flex flex-col gap-2 sm:col-span-2">
-			<Label for="certResolver" class="mr-2">Certificate Resolver</Label>
+			<Label for="certResolver" class="mr-2">{$_('forms.certResolver')}</Label>
 			<div class="col-span-3">
 				<Input
 					value={config.tls?.certResolver}
@@ -198,7 +198,7 @@
 
 		<!-- Priority -->
 		<div class="flex flex-col gap-2 sm:col-span-1">
-			<Label for="priority" class="mr-2">Priority</Label>
+			<Label for="priority" class="mr-2">{$_('forms.priority')}</Label>
 			<Input
 				id="priority"
 				type="number"
