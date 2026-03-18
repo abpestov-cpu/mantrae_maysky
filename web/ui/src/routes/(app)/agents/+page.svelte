@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { agent } from '$lib/api/agents.svelte';
+	import { get } from 'svelte/store';
+	import { _ } from 'svelte-i18n';
 	import AgentModal from '$lib/components/modals/AgentModal.svelte';
 	import ColumnBadge from '$lib/components/tables/ColumnBadge.svelte';
 	import DataTable from '$lib/components/tables/DataTable.svelte';
@@ -23,7 +25,7 @@
 
 	const columns: ColumnDef<Agent>[] = [
 		{
-			header: 'Hostname',
+			header: get(_)('agents.hostname'),
 			accessorKey: 'hostname',
 			enableSorting: true,
 			cell: ({ row }) => {
@@ -35,7 +37,7 @@
 			}
 		},
 		{
-			header: 'Endpoint',
+			header: get(_)('agents.endpoint'),
 			accessorKey: 'activeIp',
 			enableSorting: true,
 			cell: ({ row }) => {
@@ -46,7 +48,7 @@
 			}
 		},
 		{
-			header: 'Last Seen',
+			header: get(_)('agents.lastSeen'),
 			accessorKey: 'updatedAt',
 			enableSorting: true,
 			enableGlobalFilter: false,
@@ -77,16 +79,16 @@
 						},
 						{
 							type: 'popover',
-							label: 'Delete Agent',
+							label: get(_)('agents.deleteAgent'),
 							icon: Trash,
 							classProps: 'text-destructive',
 							onClick: () => deleteAgent.mutate({ id: row.original.id }),
 							popover: {
-								title: 'Delete Agent?',
+								title: get(_)('agents.deleteAgent') + '?',
 								description:
 									'This agent will will be permanently deleted. This will also delete all associated routers.',
-								confirmLabel: 'Delete',
-								cancelLabel: 'Cancel'
+								confirmLabel: get(_)('common.delete'),
+								cancelLabel: get(_)('common.cancel')
 							}
 						}
 					]
@@ -111,7 +113,7 @@
 	const bulkActions: BulkAction<Agent>[] = [
 		{
 			type: 'button',
-			label: 'Delete',
+			label: get(_)('common.delete'),
 			icon: Trash,
 			variant: 'destructive',
 			onClick: bulkDelete
@@ -135,7 +137,7 @@
 </script>
 
 <svelte:head>
-	<title>Agents - Mantrae</title>
+	<title>{$_('meta.agentsTitle')}</title>
 	<meta
 		name="description"
 		content="Monitor and manage your connected Mantrae agents for distributed reverse proxy management"
@@ -163,7 +165,7 @@
 			'bg-red-300/25 dark:bg-red-700/25': (r) => !getAgentStatus(r)
 		}}
 		createButton={{
-			label: 'Add Agent',
+			label: $_('agents.addAgent'),
 			onClick: () => createAgent.mutate({})
 		}}
 	/>

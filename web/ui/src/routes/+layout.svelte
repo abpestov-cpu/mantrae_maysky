@@ -4,6 +4,7 @@
 	import { setTransport } from '$lib/query';
 	import { QueryClientProvider } from '@tanstack/svelte-query';
 	import { ModeWatcher } from 'mode-watcher';
+	import '$lib/i18n';
 	import './layout.css';
 
 	let { children } = $props();

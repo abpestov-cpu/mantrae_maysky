@@ -12,6 +12,8 @@
 	import { CircleCheck, CircleSlash, Globe, Pencil, Trash } from '@lucide/svelte';
 	import type { ColumnDef } from '@tanstack/table-core';
 	import { toast } from 'svelte-sonner';
+	import { get } from 'svelte/store';
+	import { _ } from 'svelte-i18n';
 
 	let data = $state({} as DNSProvider);
 	let open = $state(false);
@@ -22,13 +24,13 @@
 
 	const columns: ColumnDef<DNSProvider>[] = [
 		{
-			header: 'Name',
+			header: get(_)('dns.name'),
 			accessorKey: 'name',
 			enableSorting: true,
 			enableHiding: false
 		},
 		{
-			header: 'Provider',
+			header: get(_)('dns.provider'),
 			accessorKey: 'type',
 			enableSorting: true,
 			enableGlobalFilter: false,
@@ -60,7 +62,7 @@
 			}
 		},
 		{
-			header: 'IP Address',
+			header: get(_)('dns.ipAddress'),
 			accessorKey: 'config.ip',
 			id: 'ip',
 			enableSorting: true,
@@ -68,7 +70,7 @@
 			cell: ({ row }) => {
 				if (row.original.config?.autoUpdate) {
 					return renderComponent(ColumnBadge, {
-						label: 'auto',
+						label: get(_)('dns.auto'),
 						variant: 'secondary',
 						class: 'hover:cursor-pointer'
 					});
@@ -81,7 +83,7 @@
 			}
 		},
 		{
-			header: 'Default',
+			header: get(_)('dns.default'),
 			accessorKey: 'isDefault',
 			enableSorting: true,
 			enableGlobalFilter: false,
@@ -90,7 +92,7 @@
 					actions: [
 						{
 							type: 'button',
-							label: row.original.isDefault ? 'Disable' : 'Enable',
+							label: row.original.isDefault ? get(_)('common.disable') : get(_)('common.enable'),
 							icon: row.original.isDefault ? CircleCheck : CircleSlash,
 							iconProps: {
 								class: row.original.isDefault ? 'text-green-500 size-5' : 'text-red-500 size-5',
@@ -104,7 +106,7 @@
 			}
 		},
 		{
-			header: 'Proxied',
+			header: get(_)('dns.proxied'),
 			accessorKey: 'config.proxied',
 			id: 'proxied',
 			enableSorting: true,
@@ -123,7 +125,7 @@
 					actions: [
 						{
 							type: 'button',
-							label: 'Edit Provider',
+							label: get(_)('dns.editProvider'),
 							icon: Pencil,
 							onClick: () => {
 								data = row.original;
@@ -132,15 +134,15 @@
 						},
 						{
 							type: 'popover',
-							label: 'Delete Provider',
+							label: get(_)('dns.deleteProvider'),
 							icon: Trash,
 							classProps: 'text-destructive',
 							onClick: () => deleteDNS.mutate({ id: row.original.id }),
 							popover: {
-								title: 'Delete Provider?',
-								description: 'This DNS provider will be permanently deleted.',
-								confirmLabel: 'Delete',
-								cancelLabel: 'Cancel'
+								title: get(_)('dns.deleteProvider') + '?',
+								description: get(_)('common.permanentDelete', { values: { item: get(_)('dns.provider') } }),
+								confirmLabel: get(_)('common.delete'),
+								cancelLabel: get(_)('common.cancel')
 							}
 						}
 					]
@@ -152,7 +154,7 @@
 	const bulkActions: BulkAction<DNSProvider>[] = [
 		{
 			type: 'button',
-			label: 'Delete',
+			label: get(_)('common.delete'),
 			icon: Trash,
 			variant: 'destructive',
 			onClick: bulkDelete
@@ -160,8 +162,9 @@
 	];
 
 	async function bulkDelete(rows: DNSProvider[]) {
+		const t = get(_);
 		try {
-			const confirmed = confirm(`Are you sure you want to delete ${rows.length} DNS Providers?`);
+			const confirmed = confirm(t('common.confirmDelete', { values: { count: rows.length, items: t('dns.title') } }));
 			if (!confirmed) return;
 
 			for (const row of rows) {
@@ -170,17 +173,14 @@
 			toast.success(`Successfully deleted ${rows.length} DNS Providers`);
 		} catch (err) {
 			const e = ConnectError.from(err);
-			toast.error('Failed to delete DNS Providers', { description: e.message });
+			toast.error(t('common.failedAction', { values: { action: t('common.delete'), items: t('dns.title') } }), { description: e.message });
 		}
 	}
 </script>
 
 <svelte:head>
-	<title>DNS Providers - Mantrae</title>
-	<meta
-		name="description"
-		content="Manage your DNS providers for automatic DNS challenge resolution with Let's Encrypt"
-	/>
+	<title>{$_('meta.dnsTitle')}</title>
+	<meta name="description" content={$_('meta.dnsDesc')} />
 </svelte:head>
 
 <DNSModal bind:open {data} />
@@ -192,9 +192,9 @@
 				<div class="rounded-lg bg-primary/10 p-2">
 					<Globe class="h-6 w-6 text-primary" />
 				</div>
-				DNS Management
+				{$_('dns.title')}
 			</h1>
-			<p class="mt-1 text-muted-foreground">Manage your DNS providers</p>
+			<p class="mt-1 text-muted-foreground">{$_('meta.dnsDesc')}</p>
 		</div>
 	</div>
 
@@ -203,7 +203,7 @@
 		{columns}
 		{bulkActions}
 		createButton={{
-			label: 'Add Provider',
+			label: $_('dns.addProvider'),
 			onClick: () => (open = true)
 		}}
 	/>

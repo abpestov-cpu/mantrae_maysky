@@ -34,6 +34,8 @@
 	import { profile } from '$lib/api/profiles.svelte';
 	import { user } from '$lib/api/users.svelte';
 	import { profileID } from '$lib/store.svelte';
+	import { _ } from 'svelte-i18n';
+	import LanguageSwitcher from './LanguageSwitcher.svelte';
 
 	let { ...restProps }: ComponentProps<typeof Sidebar.Root> = $props();
 
@@ -42,27 +44,27 @@
 	type IconComponent = Component<IconProps, Record<string, never>, ''>;
 
 	type Route = {
-		title: string;
+		titleKey: string;
 		url: string;
 		icon: IconComponent;
 		adminOnly?: boolean;
 		subItems?: Route[];
 	};
 	const mainRoutes: Route[] = [
-		{ title: 'Dashboard', url: '/', icon: Gauge },
-		{ title: 'Routers', url: '/router/', icon: Route },
-		{ title: 'Middlewares', url: '/middlewares/', icon: Layers },
-		{ title: 'Entry Points', url: '/entrypoints/', icon: EthernetPort },
-		{ title: 'Server Transports', url: '/transport/', icon: Truck }
+		{ titleKey: 'nav.dashboard', url: '/', icon: Gauge },
+		{ titleKey: 'nav.routers', url: '/router/', icon: Route },
+		{ titleKey: 'nav.middlewares', url: '/middlewares/', icon: Layers },
+		{ titleKey: 'nav.entrypoints', url: '/entrypoints/', icon: EthernetPort },
+		{ titleKey: 'nav.transports', url: '/transport/', icon: Truck }
 	];
 	const adminRoutes: Route[] = [
-		{ title: 'Users', url: '/users/', icon: Users },
-		{ title: 'Agents', url: '/agents/', icon: Bot },
-		{ title: 'DNS', url: '/dns/', icon: Globe },
-		{ title: 'Settings', url: '/settings/', icon: Settings }
+		{ titleKey: 'nav.users', url: '/users/', icon: Users },
+		{ titleKey: 'nav.agents', url: '/agents/', icon: Bot },
+		{ titleKey: 'nav.dns', url: '/dns/', icon: Globe },
+		{ titleKey: 'nav.settings', url: '/settings/', icon: Settings }
 	];
 	const supportRoutes: Route[] = [
-		{ title: 'API Reference', url: `${BackendURL}/openapi`, icon: Cog }
+		{ titleKey: 'nav.apiReference', url: `${BackendURL}/openapi`, icon: Cog }
 	];
 
 	const profileList = profile.list();
@@ -115,7 +117,7 @@
 						side={sidebar.isMobile ? 'bottom' : 'right'}
 						sideOffset={4}
 					>
-						<DropdownMenu.Label class="text-xs text-muted-foreground">Profiles</DropdownMenu.Label>
+						<DropdownMenu.Label class="text-xs text-muted-foreground">{$_('nav.profiles')}</DropdownMenu.Label>
 						{#each profileList.data || [] as p (p.id)}
 							<DropdownMenu.Item
 								onSelect={() => (profileID.current = p.id)}
@@ -135,7 +137,7 @@
 									}}
 								>
 									<Pencil />
-									Edit
+									{$_('nav.edit')}
 								</Button>
 							</DropdownMenu.Item>
 						{/each}
@@ -150,7 +152,7 @@
 							<div class="flex size-6 items-center justify-center rounded-md border bg-background">
 								<Plus class="size-4" />
 							</div>
-							<div class="font-medium text-muted-foreground">Add Profile</div>
+							<div class="font-medium text-muted-foreground">{$_('nav.addProfile')}</div>
 						</DropdownMenu.Item>
 					</DropdownMenu.Content>
 				</DropdownMenu.Root>
@@ -160,16 +162,16 @@
 
 	<Sidebar.Content>
 		<Sidebar.Group>
-			<Sidebar.GroupLabel>Overview</Sidebar.GroupLabel>
+			<Sidebar.GroupLabel>{$_('nav.overview')}</Sidebar.GroupLabel>
 			<Sidebar.GroupContent class="flex flex-col gap-2">
 				<Sidebar.Menu>
-					{#each mainRoutes as r (r.title)}
+					{#each mainRoutes as r (r.titleKey)}
 						<Sidebar.MenuItem>
-							<Sidebar.MenuButton tooltipContent={r.title}>
+							<Sidebar.MenuButton tooltipContent={$_(r.titleKey)}>
 								{#snippet child({ props })}
 									<a href={r.url} {...props}>
 										<r.icon />
-										<span>{r.title}</span>
+										<span>{$_(r.titleKey)}</span>
 									</a>
 								{/snippet}
 							</Sidebar.MenuButton>
@@ -180,15 +182,15 @@
 		</Sidebar.Group>
 
 		<Sidebar.Group class="group-data-[collapsible=icon]:hidden">
-			<Sidebar.GroupLabel>Management</Sidebar.GroupLabel>
+			<Sidebar.GroupLabel>{$_('nav.management')}</Sidebar.GroupLabel>
 			<Sidebar.Menu>
-				{#each adminRoutes as r (r.title)}
+				{#each adminRoutes as r (r.titleKey)}
 					<Sidebar.MenuItem>
-						<Sidebar.MenuButton tooltipContent={r.title}>
+						<Sidebar.MenuButton tooltipContent={$_(r.titleKey)}>
 							{#snippet child({ props })}
 								<a href={r.url} {...props}>
 									<r.icon />
-									<span>{r.title}</span>
+									<span>{$_(r.titleKey)}</span>
 								</a>
 							{/snippet}
 						</Sidebar.MenuButton>
@@ -201,15 +203,15 @@
 	<!-- Bottom buttons -->
 	<Sidebar.Group class="mt-auto">
 		<Sidebar.GroupContent>
-			<Sidebar.GroupLabel>Support</Sidebar.GroupLabel>
+			<Sidebar.GroupLabel>{$_('nav.support')}</Sidebar.GroupLabel>
 			<Sidebar.Menu>
-				{#each supportRoutes as r (r.title)}
+				{#each supportRoutes as r (r.titleKey)}
 					<Sidebar.MenuItem>
 						<Sidebar.MenuButton>
 							{#snippet child({ props })}
 								<a href={r.url} {...props}>
 									<r.icon />
-									<span>{r.title}</span>
+									<span>{$_(r.titleKey)}</span>
 								</a>
 							{/snippet}
 						</Sidebar.MenuButton>
@@ -261,22 +263,26 @@
 						<DropdownMenu.Group>
 							<DropdownMenu.Item onSelect={() => (modalUserOpen = true)}>
 								<CircleUserRound />
-								Account
+								{$_('nav.account')}
 							</DropdownMenu.Item>
 							<DropdownMenu.Item onSelect={toggleMode}>
 								{#if mode.current === 'dark'}
 									<Sun class="size-4" />
-									<span>Light Mode</span>
+									<span>{$_('nav.lightMode')}</span>
 								{:else}
 									<Moon class="size-4" />
-									<span>Dark Mode</span>
+									<span>{$_('nav.darkMode')}</span>
 								{/if}
 							</DropdownMenu.Item>
 						</DropdownMenu.Group>
 						<DropdownMenu.Separator />
+						<DropdownMenu.Item>
+							<LanguageSwitcher />
+						</DropdownMenu.Item>
+						<DropdownMenu.Separator />
 						<DropdownMenu.Item onSelect={() => logout.mutate({})}>
 							<LogOut />
-							Log out
+							{$_('nav.logout')}
 						</DropdownMenu.Item>
 					</DropdownMenu.Content>
 				</DropdownMenu.Root>

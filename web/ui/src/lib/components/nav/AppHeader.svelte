@@ -6,6 +6,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { SiteRoutes } from './routes';
+	import { _ } from 'svelte-i18n';
 
 	type Crumb = {
 		title: string;
@@ -24,7 +25,7 @@
 			const match = SiteRoutes.find((r) => r.url.replace(/\/$/, '') === currentPath);
 			if (match) {
 				crumbs.push({
-					title: match.title,
+					title: $_(match.titleKey),
 					url: match.url,
 					isLast: i === segments.length - 1
 				});
@@ -43,14 +44,14 @@
 			const root = SiteRoutes.find((r) => r.url === '/');
 			return [
 				{
-					title: root?.title || 'Home',
+					title: root ? $_(root.titleKey) : $_('nav.home'),
 					url: '/',
 					isLast: true
 				}
 			];
 		}
 
-		return [{ title: 'Home', url: '/', isLast: false }, ...crumbs];
+		return [{ title: $_('nav.home'), url: '/', isLast: false }, ...crumbs];
 	});
 </script>
 
@@ -90,9 +91,9 @@
 				>
 					<Tabs.List>
 						<Tabs.Trigger value="middlewares" class="px-2 py-0.5 font-bold">
-							Middlewares
+							{$_('nav.middlewares')}
 						</Tabs.Trigger>
-						<Tabs.Trigger value="plugins" class="px-2 py-0.5 font-bold">Plugins</Tabs.Trigger>
+						<Tabs.Trigger value="plugins" class="px-2 py-0.5 font-bold">{$_('plugins.title', { default: 'Plugins' })}</Tabs.Trigger>
 					</Tabs.List>
 				</Tabs.Root>
 			</div>

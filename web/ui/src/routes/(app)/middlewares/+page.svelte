@@ -23,6 +23,8 @@
 	import { ConnectError } from '@connectrpc/connect';
 	import ColumnText from '$lib/components/tables/ColumnText.svelte';
 	import { ProtocolType } from '$lib/gen/mantrae/v1/protocol_pb';
+	import { get } from 'svelte/store';
+	import { _ } from 'svelte-i18n';
 	import { middleware } from '$lib/api/middleware.svelte';
 
 	let data = $state({} as Middleware);
@@ -34,7 +36,7 @@
 
 	const columns: ColumnDef<Middleware>[] = [
 		{
-			header: 'Name',
+			header: get(_)('middlewares.name'),
 			accessorKey: 'name',
 			enableSorting: true,
 			enableHiding: false,
@@ -48,7 +50,7 @@
 			}
 		},
 		{
-			header: 'Protocol',
+			header: get(_)('middlewares.protocol'),
 			accessorKey: 'type',
 			enableSorting: true,
 			enableGlobalFilter: false,
@@ -89,7 +91,7 @@
 			}
 		},
 		{
-			header: 'Type',
+			header: get(_)('middlewares.type'),
 			accessorKey: 'config',
 			enableSorting: true,
 			enableGlobalFilter: false,
@@ -107,7 +109,7 @@
 			}
 		},
 		{
-			header: 'Default',
+			header: get(_)('middlewares.default'),
 			accessorKey: 'isDefault',
 			enableSorting: true,
 			enableGlobalFilter: false,
@@ -150,7 +152,7 @@
 						},
 						{
 							type: 'button',
-							label: 'Edit Middleware',
+							label: get(_)('middlewares.editMiddleware'),
 							icon: Pencil,
 							onClick: () => {
 								data = row.original;
@@ -159,15 +161,15 @@
 						},
 						{
 							type: 'popover',
-							label: 'Delete Middleware',
+							label: get(_)('middlewares.deleteMiddleware'),
 							icon: Trash,
 							classProps: 'text-destructive',
 							onClick: () => deleteMiddleware.mutate({ ...row.original }),
 							popover: {
-								title: 'Delete Middleware?',
+								title: get(_)('middlewares.deleteMiddleware') + '?',
 								description: 'This middleware and its configuration will be permanently deleted.',
-								confirmLabel: 'Delete',
-								cancelLabel: 'Cancel'
+								confirmLabel: get(_)('common.delete'),
+								cancelLabel: get(_)('common.cancel')
 							}
 						}
 					]
@@ -183,7 +185,7 @@
 	const bulkActions: BulkAction<Middleware>[] = [
 		{
 			type: 'button',
-			label: 'Delete',
+			label: get(_)('common.delete'),
 			icon: Trash,
 			variant: 'destructive',
 			onClick: bulkDelete
@@ -210,7 +212,7 @@
 </script>
 
 <svelte:head>
-	<title>Middlewares - Mantrae</title>
+	<title>{$_('meta.middlewaresTitle')}</title>
 	<meta
 		name="description"
 		content="Manage HTTP and TCP middlewares to customize your reverse proxy behavior"
@@ -237,7 +239,7 @@
 		{columns}
 		{bulkActions}
 		createButton={{
-			label: 'Create Middleware',
+			label: $_('middlewares.createMiddleware'),
 			onClick: () => {
 				data = { type: ProtocolType.HTTP } as Middleware;
 				open = true;

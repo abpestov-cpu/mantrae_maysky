@@ -10,6 +10,7 @@
 	import { transport } from '$lib/api/transport.svelte';
 	import { user } from '$lib/api/users.svelte';
 	import { audit } from '$lib/api/util.svelte';
+	import { _ } from 'svelte-i18n';
 	import AuditLogModal from '$lib/components/modals/AuditLogModal.svelte';
 	import ConfigModal from '$lib/components/modals/ConfigModal.svelte';
 	import ProfileModal from '$lib/components/modals/ProfileModal.svelte';
@@ -116,11 +117,8 @@
 </script>
 
 <svelte:head>
-	<title>Dashboard - Mantrae</title>
-	<meta
-		name="description"
-		content="Monitor and manage your reverse proxy configurations, agents, DNS providers, and system users"
-	/>
+	<title>{$_('meta.dashboardTitle')}</title>
+	<meta name="description" content={$_('meta.dashboardDesc')} />
 </svelte:head>
 
 <ProfileModal data={modalProfile} bind:open={modalProfileOpen} />
@@ -135,15 +133,15 @@
 				<div class="rounded-xl bg-primary/10 p-2.5 shadow-sm">
 					<GaugeIcon class="h-6 w-6 text-primary" />
 				</div>
-				Dashboard
+				{$_('dashboard.title')}
 			</h1>
-			<p class="mt-2 text-muted-foreground">Overview of your system and active configuration.</p>
+			<p class="mt-2 text-muted-foreground">{$_('dashboard.description')}</p>
 		</div>
 
 		{#if currentProfile}
 			<div class="flex items-center gap-3 rounded-lg border bg-card p-2 px-4 shadow-sm">
 				<div class="flex flex-col items-end">
-					<span class="text-xs font-medium text-muted-foreground">Active Profile</span>
+					<span class="text-xs font-medium text-muted-foreground">{$_('dashboard.activeProfile')}</span>
 					<span class="font-bold text-primary">{currentProfile.name}</span>
 				</div>
 				<div class="h-8 w-px bg-border"></div>
@@ -151,13 +149,13 @@
 					<Popover.Trigger>
 						<Button size="sm" variant="ghost" class="h-8 w-8 p-0">
 							<Link class="h-4 w-4 text-muted-foreground" />
-							<span class="sr-only">Connection Info</span>
+							<span class="sr-only">{$_('dashboard.connectionInfo')}</span>
 						</Button>
 					</Popover.Trigger>
 					<Popover.Content class="w-96 p-0" align="end">
 						<Tabs.Root value="yaml" class="w-full">
 							<div class="flex items-center justify-between border-b px-4 py-2">
-								<h4 class="font-medium">Traefik Provider</h4>
+								<h4 class="font-medium">{$_('dashboard.traefikProvider')}</h4>
 								<Tabs.List class="h-7">
 									<Tabs.Trigger value="yaml" class="h-5 text-xs">YAML</Tabs.Trigger>
 									<Tabs.Trigger value="cli" class="h-5 text-xs">CLI</Tabs.Trigger>
@@ -166,7 +164,7 @@
 							<div class="px-4 py-2">
 								<Tabs.Content value="yaml" class="mt-0 space-y-3">
 									<p class="text-xs text-muted-foreground">
-										Add this to your dynamic configuration file:
+										{$_('dashboard.addToDynamic')}
 									</p>
 									<div class="relative rounded-md bg-muted p-3">
 										<pre class="overflow-x-auto text-xs"><code>{yamlStr}</code></pre>
@@ -176,7 +174,7 @@
 									</div>
 								</Tabs.Content>
 								<Tabs.Content value="cli" class="mt-0 space-y-3">
-									<p class="text-xs text-muted-foreground">Use this flag when starting Traefik:</p>
+									<p class="text-xs text-muted-foreground">{$_('dashboard.useFlag')}</p>
 									<div class="relative rounded-md bg-muted p-3">
 										<code class="text-xs break-all">{cliStr}</code>
 										<div class="absolute top-2 right-2 bg-muted">
@@ -199,12 +197,12 @@
 			class="overflow-hidden border-b-4 border-b-primary shadow-sm transition-all hover:shadow-md"
 		>
 			<Card.Header class="flex flex-row items-center justify-between pb-2">
-				<Card.Title class="text-sm font-medium text-muted-foreground">Profiles</Card.Title>
+				<Card.Title class="text-sm font-medium text-muted-foreground">{$_('dashboard.profiles')}</Card.Title>
 				<Layers2 class="h-4 w-4 text-muted-foreground" />
 			</Card.Header>
 			<Card.Content>
 				<div class="text-3xl font-bold">{profileList.data?.length ?? 0}</div>
-				<p class="mt-1 text-xs text-muted-foreground">Total configurations</p>
+				<p class="mt-1 text-xs text-muted-foreground">{$_('dashboard.totalConfigurations')}</p>
 			</Card.Content>
 		</Card.Root>
 
@@ -213,12 +211,12 @@
 			class="overflow-hidden border-b-4 border-b-purple-500 shadow-sm transition-all hover:shadow-md"
 		>
 			<Card.Header class="flex flex-row items-center justify-between pb-2">
-				<Card.Title class="text-sm font-medium text-muted-foreground">Users</Card.Title>
+				<Card.Title class="text-sm font-medium text-muted-foreground">{$_('dashboard.users')}</Card.Title>
 				<Users class="h-4 w-4 text-muted-foreground" />
 			</Card.Header>
 			<Card.Content>
 				<div class="text-3xl font-bold">{userList.data?.length ?? 0}</div>
-				<p class="mt-1 text-xs text-muted-foreground">Active accounts</p>
+				<p class="mt-1 text-xs text-muted-foreground">{$_('dashboard.activeAccounts')}</p>
 			</Card.Content>
 		</Card.Root>
 
@@ -227,7 +225,7 @@
 			class="overflow-hidden border-b-4 border-b-green-500 shadow-sm transition-all hover:shadow-md"
 		>
 			<Card.Header class="flex flex-row items-center justify-between pb-2">
-				<Card.Title class="text-sm font-medium text-muted-foreground">DNS Providers</Card.Title>
+				<Card.Title class="text-sm font-medium text-muted-foreground">{$_('dashboard.dnsProviders')}</Card.Title>
 				<Globe class="h-4 w-4 text-muted-foreground" />
 			</Card.Header>
 			<Card.Content class="flex items-end justify-between">
@@ -237,7 +235,7 @@
 						<StarIcon class="h-3 w-3 text-yellow-500" />
 						<span title="Default provider">{dnsList.data?.find((p) => p.isDefault)?.name}</span>
 					{:else}
-						No default
+						{$_('dashboard.noDefault')}
 					{/if}
 				</Badge>
 			</Card.Content>
@@ -248,7 +246,7 @@
 			class="overflow-hidden border-b-4 border-b-orange-500 shadow-sm transition-all hover:shadow-md"
 		>
 			<Card.Header class="flex flex-row items-center justify-between pb-2">
-				<Card.Title class="text-sm font-medium text-muted-foreground">Active Agents</Card.Title>
+				<Card.Title class="text-sm font-medium text-muted-foreground">{$_('dashboard.activeAgents')}</Card.Title>
 				<Bot class="h-4 w-4 text-muted-foreground" />
 			</Card.Header>
 			<Card.Content>
@@ -277,7 +275,7 @@
 									{currentProfile.name}
 								</Card.Title>
 								<Card.Description
-									>{currentProfile.description || 'No description provided'}</Card.Description
+									>{currentProfile.description || $_('dashboard.noDescription')}</Card.Description
 								>
 							</div>
 							<div class="flex gap-2">
@@ -290,7 +288,7 @@
 										modalProfileOpen = true;
 									}}
 								>
-									<Pen class="h-3.5 w-3.5" /> Edit
+									<Pen class="h-3.5 w-3.5" /> {$_('common.edit')}
 								</Button>
 								<Button
 									size="sm"
@@ -419,7 +417,7 @@
 					class="flex h-full flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center text-muted-foreground"
 				>
 					<Database class="mb-4 h-12 w-12 opacity-20" />
-					<h3 class="text-lg font-medium">No Profile Selected</h3>
+					<h3 class="text-lg font-medium">{$_('dashboard.noProfileSelected')}</h3>
 					<p class="text-sm">Select or create a profile to view its configuration.</p>
 				</div>
 			{/if}
@@ -461,7 +459,7 @@
 							</div>
 						{/each}
 						{#if (logs.data?.length ?? 0) === 0}
-							<p class="text-center text-xs text-muted-foreground">No recent logs found.</p>
+							<p class="text-center text-xs text-muted-foreground">{$_('dashboard.noRecentLogs')}</p>
 						{/if}
 					</div>
 				</Card.Content>
@@ -471,7 +469,7 @@
 		<!-- Right Column: Profile Switcher -->
 		<Card.Root class="max-h-[80vh] overflow-hidden">
 			<Card.Header class="border-b">
-				<Card.Title>Profile Switcher</Card.Title>
+				<Card.Title>{$_('dashboard.profileSwitcher')}</Card.Title>
 			</Card.Header>
 			<Card.Content class="space-y-4 p-0">
 				<div class="space-y-2 px-4">
@@ -488,7 +486,7 @@
 							<div class="grid gap-0.5">
 								<span class="text-sm font-medium">{p.name}</span>
 								<span class="line-clamp-1 text-xs text-muted-foreground"
-									>{p.description || 'No description'}</span
+									>{p.description || $_('dashboard.noDescription')}</span
 								>
 							</div>
 							{#if p.id === profileID.current}
@@ -499,7 +497,7 @@
 						</button>
 					{/each}
 					{#if (profileList.data?.length ?? 0) === 0}
-						<div class="py-8 text-center text-sm text-muted-foreground">No profiles found.</div>
+						<div class="py-8 text-center text-sm text-muted-foreground">{$_('dashboard.noProfiles')}</div>
 					{/if}
 				</div>
 				<div class="border-t bg-muted/30 px-3 pt-4">
@@ -512,7 +510,7 @@
 						}}
 					>
 						<Layers2 class="h-4 w-4" />
-						Create New Profile
+						{$_('dashboard.createNewProfile')}
 					</Button>
 				</div>
 			</Card.Content>

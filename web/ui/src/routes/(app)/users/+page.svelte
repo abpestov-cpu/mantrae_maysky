@@ -12,6 +12,8 @@
 	import ColumnBadge from '$lib/components/tables/ColumnBadge.svelte';
 	import { formatTs } from '$lib/utils';
 	import { user } from '$lib/api/users.svelte';
+	import { get } from 'svelte/store';
+	import { _ } from 'svelte-i18n';
 
 	let data = $state({} as User);
 	let open = $state(false);
@@ -21,12 +23,12 @@
 
 	const columns: ColumnDef<User>[] = [
 		{
-			header: 'Username',
+			header: get(_)('users.username'),
 			accessorKey: 'username',
 			enableSorting: true
 		},
 		{
-			header: 'Email',
+			header: get(_)('users.email'),
 			accessorKey: 'email',
 			enableSorting: true,
 			cell: ({ row }) => {
@@ -34,7 +36,7 @@
 			}
 		},
 		{
-			header: 'Last Login',
+			header: get(_)('users.lastLogin'),
 			accessorKey: 'lastLogin',
 			enableSorting: true,
 			enableGlobalFilter: false,
@@ -54,7 +56,7 @@
 					actions: [
 						{
 							type: 'button',
-							label: 'Edit User',
+							label: get(_)('users.editUser'),
 							icon: Pencil,
 							onClick: () => {
 								data = row.original;
@@ -63,15 +65,15 @@
 						},
 						{
 							type: 'popover',
-							label: 'Delete User',
+							label: get(_)('users.deleteUser'),
 							icon: Trash,
 							classProps: 'text-destructive',
 							onClick: () => deleteUser.mutate({ id: row.original.id }),
 							popover: {
-								title: 'Delete User?',
-								description: 'This user will be permanently deleted.',
-								confirmLabel: 'Delete',
-								cancelLabel: 'Cancel'
+								title: get(_)('users.deleteUser') + '?',
+								description: get(_)('common.permanentDelete', { values: { item: get(_)('users.username') } }),
+								confirmLabel: get(_)('common.delete'),
+								cancelLabel: get(_)('common.cancel')
 							}
 						}
 					]
@@ -83,7 +85,7 @@
 	const bulkActions: BulkAction<User>[] = [
 		{
 			type: 'button',
-			label: 'Delete',
+			label: get(_)('common.delete'),
 			icon: Trash,
 			variant: 'destructive',
 			onClick: bulkDelete
@@ -91,8 +93,9 @@
 	];
 
 	async function bulkDelete(rows: User[]) {
+		const t = get(_);
 		try {
-			const confirmed = confirm(`Are you sure you want to delete ${rows.length} Users?`);
+			const confirmed = confirm(t('common.confirmDelete', { values: { count: rows.length, items: t('nav.users') } }));
 			if (!confirmed) return;
 
 			for (const row of rows) {
@@ -101,17 +104,14 @@
 			toast.success(`Successfully deleted ${rows.length} Users`);
 		} catch (err) {
 			const e = ConnectError.from(err);
-			toast.error('Failed to delete DNS Providers', { description: e.message });
+			toast.error(t('common.failedAction', { values: { action: t('common.delete'), items: t('nav.users') } }), { description: e.message });
 		}
 	}
 </script>
 
 <svelte:head>
-	<title>User Management</title>
-	<meta
-		name="description"
-		content="Manage your Mantrae users and access permissions for your reverse proxy system"
-	/>
+	<title>{$_('meta.usersTitle')}</title>
+	<meta name="description" content={$_('meta.usersDesc')} />
 </svelte:head>
 
 <UserModal bind:open {data} />
@@ -123,9 +123,9 @@
 				<div class="rounded-lg bg-primary/10 p-2">
 					<Users class="h-6 w-6 text-primary" />
 				</div>
-				User Management
+				{$_('users.title')}
 			</h1>
-			<p class="mt-1 text-muted-foreground">Manage your users and access management</p>
+			<p class="mt-1 text-muted-foreground">{$_('meta.usersDesc')}</p>
 		</div>
 	</div>
 
@@ -134,7 +134,7 @@
 		{columns}
 		{bulkActions}
 		createButton={{
-			label: 'Add User',
+			label: $_('users.addUser'),
 			onClick: () => (open = true)
 		}}
 	/>

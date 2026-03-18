@@ -11,6 +11,8 @@
 	import { CircleCheck, CircleSlash, EthernetPort, Pencil, Trash } from '@lucide/svelte';
 	import type { ColumnDef } from '@tanstack/table-core';
 	import { toast } from 'svelte-sonner';
+	import { get } from 'svelte/store';
+	import { _ } from 'svelte-i18n';
 
 	let data = $state({} as EntryPoint);
 	let open = $state(false);
@@ -21,13 +23,13 @@
 
 	const columns: ColumnDef<EntryPoint>[] = [
 		{
-			header: 'Name',
+			header: get(_)('entrypoints.name'),
 			accessorKey: 'name',
 			enableSorting: true,
 			enableHiding: false
 		},
 		{
-			header: 'Address',
+			header: get(_)('entrypoints.address'),
 			accessorKey: 'address',
 			enableSorting: true,
 			enableGlobalFilter: false,
@@ -39,7 +41,7 @@
 			}
 		},
 		{
-			header: 'Default',
+			header: get(_)('entrypoints.default'),
 			accessorKey: 'isDefault',
 			enableGlobalFilter: false,
 			cell: ({ row }) => {
@@ -47,7 +49,7 @@
 					actions: [
 						{
 							type: 'button',
-							label: row.original.isDefault ? 'Disable' : 'Enable',
+							label: row.original.isDefault ? get(_)('common.disable') : get(_)('common.enable'),
 							icon: row.original.isDefault ? CircleCheck : CircleSlash,
 							iconProps: {
 								class: row.original.isDefault ? 'text-green-500 size-5' : 'text-red-500 size-5',
@@ -69,7 +71,7 @@
 					actions: [
 						{
 							type: 'button',
-							label: 'Edit EntryPoint',
+							label: get(_)('entrypoints.editEntrypoint'),
 							icon: Pencil,
 							onClick: () => {
 								data = row.original;
@@ -78,15 +80,15 @@
 						},
 						{
 							type: 'popover',
-							label: 'Delete EntryPoint',
+							label: get(_)('entrypoints.deleteEntrypoint'),
 							icon: Trash,
 							classProps: 'text-destructive',
 							onClick: () => deleteEntryPoint.mutate({ id: row.original.id }),
 							popover: {
-								title: 'Delete EntryPoint?',
-								description: 'This entry point will be permanently deleted.',
-								confirmLabel: 'Delete',
-								cancelLabel: 'Cancel'
+								title: get(_)('entrypoints.deleteEntrypoint') + '?',
+								description: get(_)('common.permanentDelete', { values: { item: get(_)('entrypoints.name') } }),
+								confirmLabel: get(_)('common.delete'),
+								cancelLabel: get(_)('common.cancel')
 							}
 						}
 					]
@@ -98,7 +100,7 @@
 	const bulkActions: BulkAction<EntryPoint>[] = [
 		{
 			type: 'button',
-			label: 'Delete',
+			label: get(_)('common.delete'),
 			icon: Trash,
 			variant: 'destructive',
 			onClick: bulkDelete
@@ -106,8 +108,9 @@
 	];
 
 	async function bulkDelete(rows: EntryPoint[]) {
+		const t = get(_);
 		try {
-			const confirmed = confirm(`Are you sure you want to delete ${rows.length} entrypoints?`);
+			const confirmed = confirm(t('common.confirmDelete', { values: { count: rows.length, items: t('entrypoints.title') } }));
 			if (!confirmed) return;
 
 			for (const e of rows) {
@@ -116,17 +119,14 @@
 			toast.success(`Successfully deleted ${rows.length} entrypoints`);
 		} catch (err) {
 			const e = ConnectError.from(err);
-			toast.error('Failed to delete entry points', { description: e.message });
+			toast.error(t('common.failedAction', { values: { action: t('common.delete'), items: t('entrypoints.title') } }), { description: e.message });
 		}
 	}
 </script>
 
 <svelte:head>
-	<title>EntryPoints - Mantrae</title>
-	<meta
-		name="description"
-		content="Configure entrypoints for your reverse proxy to listen for incoming connections"
-	/>
+	<title>{$_('meta.entrypointsTitle')}</title>
+	<meta name="description" content={$_('meta.entrypointsDesc')} />
 </svelte:head>
 
 <EntryPointModal bind:open {data} />
@@ -138,9 +138,9 @@
 				<div class="rounded-lg bg-primary/10 p-2">
 					<EthernetPort class="h-6 w-6 text-primary" />
 				</div>
-				Entry Points
+				{$_('entrypoints.title')}
 			</h1>
-			<p class="mt-1 text-muted-foreground">Manage your entry points</p>
+			<p class="mt-1 text-muted-foreground">{$_('meta.entrypointsDesc')}</p>
 		</div>
 	</div>
 
@@ -149,7 +149,7 @@
 		{columns}
 		{bulkActions}
 		createButton={{
-			label: 'Create EntryPoint',
+			label: $_('entrypoints.createEntrypoint'),
 			onClick: () => (open = true)
 		}}
 	/>

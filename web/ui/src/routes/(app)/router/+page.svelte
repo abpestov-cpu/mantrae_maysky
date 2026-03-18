@@ -30,6 +30,8 @@
 	import { type IconComponent } from '$lib/types';
 	import { ProtocolType } from '$lib/gen/mantrae/v1/protocol_pb';
 	import { router } from '$lib/api/router.svelte';
+	import { get } from 'svelte/store';
+	import { _ } from 'svelte-i18n';
 
 	let data = $state({} as Router);
 	let open = $state(false);
@@ -40,7 +42,7 @@
 
 	const columns: ColumnDef<Router>[] = [
 		{
-			header: 'Name',
+			header: get(_)('routers.name'),
 			accessorKey: 'name',
 			enableSorting: true,
 			cell: ({ row }) => {
@@ -54,7 +56,7 @@
 			}
 		},
 		{
-			header: 'Type',
+			header: get(_)('routers.type'),
 			accessorKey: 'type',
 			enableSorting: true,
 			enableGlobalFilter: false,
@@ -91,7 +93,7 @@
 			}
 		},
 		{
-			header: 'EntryPoints',
+			header: get(_)('routers.entrypoints'),
 			accessorKey: 'config.entryPoints',
 			id: 'entrypoints',
 			enableSorting: true,
@@ -107,7 +109,7 @@
 			}
 		},
 		{
-			header: 'Middlewares',
+			header: get(_)('routers.middlewares'),
 			accessorKey: 'config.middlewares',
 			id: 'middlewares',
 			enableSorting: true,
@@ -123,7 +125,7 @@
 			}
 		},
 		{
-			header: 'Rules',
+			header: get(_)('routers.rules'),
 			accessorKey: 'config.rule',
 			id: 'rules',
 			enableSorting: true,
@@ -135,7 +137,7 @@
 			}
 		},
 		{
-			header: 'TLS',
+			header: get(_)('routers.tls'),
 			accessorKey: 'config.tls',
 			id: 'tls',
 			enableSorting: true,
@@ -169,7 +171,7 @@
 						},
 						{
 							type: 'button',
-							label: 'Edit Router',
+							label: get(_)('routers.editRouter'),
 							icon: Pencil,
 							onClick: () => {
 								data = row.original;
@@ -178,15 +180,15 @@
 						},
 						{
 							type: 'popover',
-							label: 'Delete Router',
+							label: get(_)('routers.deleteRouter'),
 							icon: Trash,
 							classProps: 'text-destructive',
 							onClick: () => deleteRouter.mutate({ ...row.original }),
 							popover: {
-								title: 'Delete Router?',
-								description: 'This router and its configuration will be permanently deleted.',
-								confirmLabel: 'Delete',
-								cancelLabel: 'Cancel'
+								title: get(_)('routers.deleteRouter') + '?',
+								description: get(_)('common.permanentDeleteWithConfig', { values: { item: get(_)('routers.title') } }),
+								confirmLabel: get(_)('common.delete'),
+								cancelLabel: get(_)('common.cancel')
 							}
 						}
 					]
@@ -206,21 +208,21 @@
 	const bulkActions: BulkAction<Router>[] = [
 		{
 			type: 'button',
-			label: 'Enable',
+			label: get(_)('common.enable'),
 			icon: CircleCheck,
 			variant: 'outline',
 			onClick: (e) => bulk(e, 'enable')
 		},
 		{
 			type: 'button',
-			label: 'Disable',
+			label: get(_)('common.disable'),
 			icon: CircleSlash,
 			variant: 'outline',
 			onClick: (e) => bulk(e, 'disable')
 		},
 		{
 			type: 'button',
-			label: 'Delete',
+			label: get(_)('common.delete'),
 			icon: Trash,
 			variant: 'destructive',
 			onClick: (e) => bulk(e, 'delete')
@@ -259,7 +261,7 @@
 </script>
 
 <svelte:head>
-	<title>Routers - Mantrae</title>
+	<title>{$_('meta.routersTitle')}</title>
 	<meta
 		name="description"
 		content="Manage your HTTP, TCP, and UDP routers for your reverse proxy configurations"
@@ -275,9 +277,9 @@
 				<div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
 					<Route class="h-5 w-5 text-primary sm:h-6 sm:w-6" />
 				</div>
-				<span class="truncate">Routers</span>
+				<span class="truncate">{$_('routers.title')}</span>
 			</h1>
-			<p class="text-sm text-muted-foreground sm:text-base">Manage your routers and services</p>
+			<p class="text-sm text-muted-foreground sm:text-base">{$_('meta.routersDesc', { default: 'Manage your routers and services' })}</p>
 		</div>
 	</div>
 
@@ -286,7 +288,7 @@
 		{columns}
 		{bulkActions}
 		createButton={{
-			label: 'Create Router',
+			label: $_('routers.createRouter'),
 			onClick: () => {
 				data = { type: ProtocolType.HTTP } as Router;
 				open = true;

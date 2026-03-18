@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { transport } from '$lib/api/transport.svelte';
+	import { get } from 'svelte/store';
+	import { _ } from 'svelte-i18n';
 	import ServerTransportModal from '$lib/components/modals/ServerTransportModal.svelte';
 	import ColumnBadge from '$lib/components/tables/ColumnBadge.svelte';
 	import DataTable from '$lib/components/tables/DataTable.svelte';
@@ -32,13 +34,13 @@
 
 	const columns: ColumnDef<ServersTransport>[] = [
 		{
-			header: 'Name',
+			header: get(_)('transports.name'),
 			accessorKey: 'name',
 			enableSorting: true,
 			enableHiding: false
 		},
 		{
-			header: 'Type',
+			header: get(_)('transports.type'),
 			accessorKey: 'type',
 			enableSorting: true,
 			enableGlobalFilter: false,
@@ -93,7 +95,7 @@
 						},
 						{
 							type: 'button',
-							label: 'Edit Transport',
+							label: get(_)('transports.editTransport'),
 							icon: Pencil,
 							onClick: () => {
 								data = row.original;
@@ -102,15 +104,15 @@
 						},
 						{
 							type: 'popover',
-							label: 'Delete Transport',
+							label: get(_)('transports.deleteTransport'),
 							icon: Trash,
 							classProps: 'text-destructive',
 							onClick: () => deleteTransport.mutate({ ...row.original }),
 							popover: {
-								title: 'Delete Transport?',
+								title: get(_)('transports.deleteTransport') + '?',
 								description: 'This transport will be permanently deleted.',
-								confirmLabel: 'Delete',
-								cancelLabel: 'Cancel'
+								confirmLabel: get(_)('common.delete'),
+								cancelLabel: get(_)('common.cancel')
 							}
 						}
 					]
@@ -129,7 +131,7 @@
 	const bulkActions: BulkAction<ServersTransport>[] = [
 		{
 			type: 'button',
-			label: 'Delete',
+			label: get(_)('common.delete'),
 			icon: Trash,
 			variant: 'destructive',
 			onClick: bulkDelete
@@ -153,7 +155,7 @@
 </script>
 
 <svelte:head>
-	<title>Server Transports - Mantrae</title>
+	<title>{$_('meta.transportsTitle')}</title>
 	<meta
 		name="description"
 		content="Configure HTTP and TCP server transports for your reverse proxy services"
@@ -180,7 +182,7 @@
 		{columns}
 		{bulkActions}
 		createButton={{
-			label: 'Create Transport',
+			label: $_('transports.createTransport'),
 			onClick: () => (open = true)
 		}}
 	/>

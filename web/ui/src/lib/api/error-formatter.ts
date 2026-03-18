@@ -1,4 +1,6 @@
 import { Code, ConnectError } from '@connectrpc/connect';
+import { get } from 'svelte/store';
+import { _ } from 'svelte-i18n';
 
 type ValidationError = {
 	field: string;
@@ -36,72 +38,74 @@ const formatFieldName = (field: string): string => {
 };
 
 const getErrorTitle = (code: Code): string => {
+	const t = get(_);
 	switch (code) {
 		case Code.Canceled:
-			return 'Request Canceled';
+			return t('errors.requestCanceled');
 		case Code.Unknown:
-			return 'Unknown Error';
+			return t('errors.unknownError');
 		case Code.InvalidArgument:
-			return 'Invalid Input';
+			return t('errors.invalidInput');
 		case Code.DeadlineExceeded:
-			return 'Request Timeout';
+			return t('errors.requestTimeout');
 		case Code.NotFound:
-			return 'Not Found';
+			return t('errors.notFound');
 		case Code.AlreadyExists:
-			return 'Already Exists';
+			return t('errors.alreadyExists');
 		case Code.PermissionDenied:
-			return 'Permission Denied';
+			return t('errors.permissionDenied');
 		case Code.ResourceExhausted:
-			return 'Rate Limit Exceeded';
+			return t('errors.rateLimitExceeded');
 		case Code.FailedPrecondition:
-			return 'Action Not Allowed';
+			return t('errors.actionNotAllowed');
 		case Code.Aborted:
-			return 'Request Aborted';
+			return t('errors.requestAborted');
 		case Code.OutOfRange:
-			return 'Out of Range';
+			return t('errors.outOfRange');
 		case Code.Unimplemented:
-			return 'Not Implemented';
+			return t('errors.notImplemented');
 		case Code.Internal:
-			return 'Server Error';
+			return t('errors.serverError');
 		case Code.Unavailable:
-			return 'Service Unavailable';
+			return t('errors.serviceUnavailable');
 		case Code.DataLoss:
-			return 'Data Loss';
+			return t('errors.dataLoss');
 		case Code.Unauthenticated:
-			return 'Authentication Required';
+			return t('errors.authRequired');
 		default:
-			return 'Error';
+			return t('errors.error');
 	}
 };
 
 const getDefaultDescription = (code: Code): string | undefined => {
+	const t = get(_);
 	switch (code) {
 		case Code.Canceled:
-			return 'The request was canceled.';
+			return t('errors.requestCanceledDesc');
 		case Code.Unknown:
-			return 'An unexpected error occurred.';
+			return t('errors.unknownErrorDesc');
 		case Code.DeadlineExceeded:
-			return 'The request took too long to complete.';
+			return t('errors.requestTimeoutDesc');
 		case Code.ResourceExhausted:
-			return 'Too many requests. Please try again later.';
+			return t('errors.rateLimitDesc');
 		case Code.Internal:
-			return 'An unexpected error occurred. Please try again.';
+			return t('errors.unexpectedDesc');
 		case Code.Unavailable:
-			return 'The service is temporarily unavailable. Please try again later.';
+			return t('errors.serviceUnavailableDesc');
 		case Code.PermissionDenied:
-			return 'You do not have permission to perform this action.';
+			return t('errors.permissionDeniedDesc');
 		case Code.Unauthenticated:
-			return 'Please log in to continue.';
+			return t('errors.authRequiredDesc');
 		case Code.NotFound:
-			return 'The requested resource could not be found.';
+			return t('errors.notFoundDesc');
 		case Code.AlreadyExists:
-			return 'A resource with this identifier already exists.';
+			return t('errors.alreadyExistsDesc');
 		case Code.Aborted:
-			return 'The request was aborted. Please try again.';
+			return t('errors.requestAbortedDesc');
 		case Code.Unimplemented:
-			return 'This feature is not yet available.';
+			return t('errors.notImplementedDesc');
 		case Code.DataLoss:
-			return 'Data was lost or corrupted.';
+			return t('errors.dataLossDesc');
 		default:
 			return undefined;
 	}
@@ -110,6 +114,7 @@ const getDefaultDescription = (code: Code): string | undefined => {
 export const formatConnectError = (
 	error: ConnectError
 ): { title: string; description?: string } => {
+	const t = get(_);
 	const title = getErrorTitle(error.code);
 
 	// Check if this is a validation error
@@ -130,7 +135,7 @@ export const formatConnectError = (
 				.join('\n');
 
 			return {
-				title: 'Validation Failed',
+				title: t('errors.validationFailed'),
 				description
 			};
 		}
