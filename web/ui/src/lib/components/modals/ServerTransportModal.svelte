@@ -15,6 +15,7 @@
 	import { ProtocolType } from '$lib/gen/mantrae/v1/protocol_pb';
 	import { protocolTypes } from '$lib/types';
 	import { transport } from '$lib/api/transport.svelte';
+	import { _ } from 'svelte-i18n';
 
 	interface Props {
 		data?: ServersTransport;
@@ -45,25 +46,25 @@
 <Dialog.Root bind:open>
 	<Dialog.Content class="no-scrollbar max-h-[95vh] w-[500px] overflow-y-auto">
 		<Dialog.Header>
-			<Dialog.Title>{transportData.id ? 'Edit' : 'Create'} ServersTransport</Dialog.Title>
-			<Dialog.Description>Configure how external traffic reaches your services</Dialog.Description>
+			<Dialog.Title>{transportData.id ? $_('common.edit') : $_('common.create')} {$_('transports.title')}</Dialog.Title>
+			<Dialog.Description>{$_('entrypointModal.description')}</Dialog.Description>
 		</Dialog.Header>
 
 		<form {onsubmit} class="space-y-4">
 			<div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-2">
 				<div class="flex flex-col gap-2 {transportData.id ? 'sm:col-span-3' : 'sm:col-span-2'}">
-					<Label for="name">Name</Label>
+					<Label for="name">{$_('transportModal.name')}</Label>
 					<Input
 						id="name"
 						bind:value={transportData.name}
-						placeholder="e.g., web, api, postgres"
+						placeholder={$_('transportModal.namePlaceholder')}
 						class="transition-colors"
 					/>
 				</div>
 
 				{#if !transportData.id}
 					<div class="flex flex-col gap-2 sm:col-span-1">
-						<Label for="type">Protocol</Label>
+						<Label for="type">{$_('routerModal.protocol')}</Label>
 						<Select.Root
 							type="single"
 							name="type"
@@ -110,7 +111,7 @@
 
 			<Separator />
 
-			<Button type="submit" class="w-full">{transportData.id ? 'Update' : 'Create'}</Button>
+			<Button type="submit" class="w-full">{transportData.id ? $_('common.update') : $_('common.create')}</Button>
 		</form>
 	</Dialog.Content>
 </Dialog.Root>

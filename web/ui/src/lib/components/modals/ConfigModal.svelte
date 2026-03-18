@@ -6,6 +6,7 @@
 	import { createHighlighter } from 'shiki';
 	import { onMount } from 'svelte';
 	import YAML from 'yaml';
+	import { _ } from 'svelte-i18n';
 
 	type Props = {
 		open?: boolean;
@@ -54,7 +55,7 @@
 <Dialog.Root bind:open>
 	<Dialog.Content class="flex max-h-[80vh] flex-col gap-0 overflow-hidden p-0">
 		<Dialog.Header class="border-b px-6 py-4">
-			<Dialog.Title>Configuration</Dialog.Title>
+			<Dialog.Title>{$_('configModal.title')}</Dialog.Title>
 			<Dialog.Description>View the current dynamic configuration.</Dialog.Description>
 		</Dialog.Header>
 
